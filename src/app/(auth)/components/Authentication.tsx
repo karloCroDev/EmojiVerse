@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
+import { auth } from "@/app/firebase/firebase";
 import Image from "next/image";
 import Link from "next/link";
 interface AuthenticationProps {
@@ -12,8 +13,18 @@ const Authentication = ({ image, alt, type, link }: AuthenticationProps) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  console.log(email, password);
+
   const checkerSignIn = type === "sign-in";
+
+  const page = useMemo(
+    () =>
+      link
+        .slice(1)
+        .split("-")
+        .map((x) => x[0].toUpperCase() + x.slice(1))
+        .join(" "),
+    []
+  );
   return (
     <>
       <div
@@ -26,7 +37,7 @@ const Authentication = ({ image, alt, type, link }: AuthenticationProps) => {
         </div>
 
         <div className="w-[45%] flex flex-col gap-10 justify-center ">
-          <h1 className="font-bold text-5xl">Sign in</h1>
+          <h1 className="font-bold text-5xl">{page}</h1>
           <form
             className="w-full flex flex-col gap-3"
             onSubmit={(e) => e.preventDefault()}
@@ -66,11 +77,7 @@ const Authentication = ({ image, alt, type, link }: AuthenticationProps) => {
                 ? "Already have an account?"
                 : "Don't have an account?"}{" "}
               <Link href={link} className="form-sign-link">
-                {link
-                  .slice(1)
-                  .split("-")
-                  .map((x) => x[0].toUpperCase() + x.slice(1))
-                  .join(" ")}
+                {page}
               </Link>
             </p>
           </form>

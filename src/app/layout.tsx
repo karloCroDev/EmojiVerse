@@ -4,6 +4,7 @@ import "./globals.css";
 
 import ThemeProvider from "./ThemeProvider";
 import ModeToggle from "./(main)/components/ModeToggle";
+import AuthStateChagedChecker from "./firebase/AuthStateChagedChecker";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +27,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <AuthStateChagedChecker />
           {/* <ModeToggle /> */}
           {children}
         </ThemeProvider>
