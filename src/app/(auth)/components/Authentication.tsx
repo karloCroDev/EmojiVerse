@@ -1,14 +1,29 @@
 "use client";
 import React, { useMemo, useState } from "react";
-import { auth } from "@/app/firebase/firebase";
+import { auth, db } from "@/app/firebase/firebase";
 import Image from "next/image";
 import Link from "next/link";
+
+//Firebase-imports
+
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore";
+
+import { useAuthStore } from "@/app/global-store";
+
+//Component
+
 interface AuthenticationProps {
   image: any | string;
   alt: string;
   type: "sign-in" | "sign-up";
   link: "/sign-in" | "/sign-up";
 }
+
 const Authentication = ({ image, alt, type, link }: AuthenticationProps) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -16,7 +31,7 @@ const Authentication = ({ image, alt, type, link }: AuthenticationProps) => {
 
   const checkerSignIn = type === "sign-in";
 
-  const page = useMemo(
+  const linkCaseSesitive = useMemo(
     () =>
       link
         .slice(1)
@@ -25,6 +40,45 @@ const Authentication = ({ image, alt, type, link }: AuthenticationProps) => {
         .join(" "),
     []
   );
+  const page = useMemo(
+    () =>
+      type
+        .split("-")
+        .map((x) => x[0].toUpperCase() + x.slice(1))
+        .join(" "),
+    []
+  );
+
+  //Firebase-part-of-code
+
+  const signUpFunc = async () => {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      await setDoc(doc(db, "users", auth.currentUser?.uid!), {
+        imgUrl: "",
+        username: username,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const signInFunc = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const signOutFunc = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  // signOutFunc();
+  //
   return (
     <>
       <div
@@ -48,8 +102,9 @@ const Authentication = ({ image, alt, type, link }: AuthenticationProps) => {
                 <input
                   type="text"
                   className="form-label-input"
-                  placeholder="...email"
+                  placeholder="...username"
                   onChange={(e) => setUsername(e.target.value)}
+                  required
                 />
               </label>
             ) : null}
@@ -60,6 +115,7 @@ const Authentication = ({ image, alt, type, link }: AuthenticationProps) => {
                 className="form-label-input"
                 placeholder="...email"
                 onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </label>
             <label className="form-label">
@@ -69,15 +125,21 @@ const Authentication = ({ image, alt, type, link }: AuthenticationProps) => {
                 className="form-label-input"
                 placeholder="...password"
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </label>
-            <button className="form-sign-button mt-5 ">Sign up</button>
+            <button
+              className="form-sign-button mt-5"
+              onClick={() => (type === "sign-up" ? signUpFunc() : signInFunc())}
+            >
+              {page}
+            </button>
             <p className="text-secondary text-sm">
               {type === "sign-up"
                 ? "Already have an account?"
                 : "Don't have an account?"}{" "}
               <Link href={link} className="form-sign-link">
-                {page}
+                {linkCaseSesitive}
               </Link>
             </p>
           </form>
