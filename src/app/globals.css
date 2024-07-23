@@ -75,10 +75,28 @@
 .form-label-input {
   @apply bg-transparent border-2 h-12 rounded-md pl-2 placeholder:text-secondary text-xl font-normal;
 }
-.form-sign-button {
-  @apply bg-primary text-background font-semibold text-3xl w-full h-16  rounded-md transition-colors hover:bg-secondary hover:text-primary;
-}
 
 .form-sign-link {
   @apply hover:text-primary underline transition-colors;
+}
+
+html {
+  font-size: 16px;
+}
+@media screen and (max-width: 1536px) {
+  html {
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  html {
+    font-size: 11px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  html {
+    font-size: 9px;
+  }
 }
