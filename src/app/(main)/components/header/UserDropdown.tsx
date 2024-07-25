@@ -18,13 +18,8 @@ const UserDropdown = () => {
     <DropdownMenu>
       <DropdownMenuTrigger className="h-[4.5rem] border-2 rounded-full w-56 p-4 flex items-center gap-x-2 hover:bg-accent">
         <Avatar>
-          <AvatarImage
-            src={
-              "https://petapixel.com/assets/uploads/2022/12/what-is-unsplash.jpg"
-            }
-            alt="Profile picture"
-          />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarImage alt="Profile picture" />
+          <AvatarFallback>IH</AvatarFallback>
         </Avatar>
         <h1 className="font-semibold text-2xl">Ivan Horvat</h1>
       </DropdownMenuTrigger>

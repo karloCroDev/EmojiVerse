@@ -22,7 +22,7 @@ const Header = () => {
           </Button>
         </li>
         <li>
-          <hr className="h-16 bg-secondary w-0.5 " />
+          <hr className="h-16 bg-border w-0.5 " />
         </li>
         <li>
           <UserDropdown />
