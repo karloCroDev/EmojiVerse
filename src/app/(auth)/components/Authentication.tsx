@@ -7,7 +7,7 @@ import { useGlobalStore } from "@/app/global-store";
 import { useToast } from "@/components/ui/use-toast";
 //Firebase-imports
 
-// import { auth, db } from "@/app/firebase/firebase";
+import { auth, db } from "@/app/firebase/firebase";
 
 //Component
 
@@ -67,33 +67,24 @@ const Authentication = ({
   const errorToastFunc = () => {
     errorToast(toast);
   };
-  // const signOutFunc = async () => {
-  //   try {
-  //     await signOut(auth);
-  //   } catch (error) {
-  //     console.error(error);
-  //     errorToast(toast);
-  //   }
-  // };
 
-  //
   return (
     <>
       <div
-        className={`animate-fade flex  gap-x-10 p-8 rounded-2xl border-2  aspect-[4/3] ${
+        className={`w-10/12 animate-fade flex sm:flex-row flex-col sm:gap-x-10 sm:p-8 p-10 py-20  sm:rounded-2xl rounded-3xl  border-2 aspect-video sm:aspect-[4/3] ${
           checkerSignIn
             ? "sm:w-[50rem] "
-            : "sm:w-[55rem] flex-row-reverse opacity-1"
+            : "sm:w-[55rem] sm:flex-row-reverse opacity-1"
         }  `}
       >
-        <div className="flex-1 flex">
+        <div className="flex-1 hidden sm:flex">
           <Image src={image} alt={alt} className="object-cover rounded-md" />
         </div>
 
-        <div className="w-[45%] flex flex-col gap-10 justify-center">
+        <div className="sm:w-[45%]  flex flex-col gap-10 justify-center">
           <h1 className="font-bold text-5xl">{page}</h1>
           <form
-            className="w-full flex flex-col gap-3"
+            className="w-full flex flex-col sm:gap-y-3 gap-y-6 "
             onSubmit={(e) => {
               e.preventDefault();
               signUpFunc !== undefined &&
@@ -134,7 +125,7 @@ const Authentication = ({
                 required
               />
             </label>
-            <Button className="bg-primary text-background font-semibold text-3xl w-full h-16  rounded-md active:scale-95  mt-5 ">
+            <Button className="bg-primary text-background font-semibold text-3xl w-full h-20 sm:h-16 sm:rounded rounded-lg active:scale-95  mt-5 ">
               {page}
             </Button>
             <p className="text-secondary text-sm">

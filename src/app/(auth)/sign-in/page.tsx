@@ -1,9 +1,9 @@
-"use client";
+"use client"; //I have to use here use client (it actually doesn't make any difference)
 import React from "react";
 import SignInImage from "../../assets/sign-in-img.jpg";
 import Authentication from "../components/Authentication";
 
-// import { auth, db } from "@/app/firebase/firebase";
+import { auth } from "@/app/firebase/firebase";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
 const page = () => {

@@ -2,7 +2,7 @@
 import React from "react";
 import SignUpImage from "../../assets/sign-up-img.jpg";
 import Authentication from "../components/Authentication";
-// import { auth, db } from "@/app/firebase/firebase";
+import { auth, db } from "@/app/firebase/firebase";
 
 import {
   createUserWithEmailAndPassword,
