@@ -27,7 +27,9 @@ const UserDropdown = () => {
         <Link href="/profile">
           <DropdownMenuItem>Profile</DropdownMenuItem>
         </Link>
-        <DropdownMenuItem>Profile</DropdownMenuItem>
+        <Link href="/create-post">
+          <DropdownMenuItem>Create post</DropdownMenuItem>
+        </Link>
       </DropdownMenuContent>
     </DropdownMenu>
   );
