@@ -10,26 +10,29 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import SignInImage from "../../assets/sign-in-img.jpg";
+import pfpImg from "../../assets/Logo-emoji-verse.png";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const UserDropdown = () => {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="border rounded-full p-5 w-[200px] ">
-        <div className="rounded-full w-[50px] h-[50px] flex justify-between">
-          <Image
-            src={SignInImage}
-            alt="User s profile picture"
-            className="h-full"
+      <DropdownMenuTrigger className="h-[4.5rem] border-2 rounded-full w-56 p-4 flex items-center gap-x-2 hover:bg-accent">
+        <Avatar>
+          <AvatarImage
+            src={
+              "https://petapixel.com/assets/uploads/2022/12/what-is-unsplash.jpg"
+            }
+            alt="Profile picture"
           />
-          <h1 className="flex-1">Hello world</h1>
-        </div>
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
+        <h1 className="font-semibold text-2xl">Ivan Horvat</h1>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
+      <DropdownMenuContent className="w-48">
+        <Link href="/profile">
+          <DropdownMenuItem>Profile</DropdownMenuItem>
+        </Link>
         <DropdownMenuItem>Profile</DropdownMenuItem>
-        <DropdownMenuItem>Billing</DropdownMenuItem>
-        <DropdownMenuItem>Team</DropdownMenuItem>
-        <DropdownMenuItem>Subscription</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
