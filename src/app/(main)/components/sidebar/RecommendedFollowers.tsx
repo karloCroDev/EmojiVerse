@@ -13,9 +13,7 @@ const RecommendedFollowers = () => {
         <h2 className="text-xl font-semibold">Ana Horvat</h2>
         <p className="text-sm">🤪🤪🤪🤪🤪</p>
       </div>
-      <Button className="text-lg font-semibold rounded-full px-6 ml-auto">
-        Follow
-      </Button>
+      <Button className="button-rounded">Follow</Button>
     </div>
   );
 };

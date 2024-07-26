@@ -88,6 +88,9 @@
   @apply bg-transparent border-2 h-16 rounded-md px-4 placeholder:text-primary text-2xl font-semibold w-72;
 }
 
+.button-rounded {
+  @apply text-lg font-semibold rounded-full px-6 ml-auto;
+}
 html {
   font-size: 16px;
 }
