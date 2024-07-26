@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import ThemeProvider from "./ThemeProvider";
-
 import AuthStateChagedChecker from "./globals/AuthStateChagedChecker";
 
 const inter = Inter({ subsets: ["latin"] });

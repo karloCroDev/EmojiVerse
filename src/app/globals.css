@@ -84,6 +84,10 @@
   @apply hover:text-primary underline transition-colors;
 }
 
+.filter-input {
+  @apply bg-transparent border-2 h-16 rounded-md px-4 placeholder:text-primary text-2xl font-semibold w-72;
+}
+
 html {
   font-size: 16px;
 }
