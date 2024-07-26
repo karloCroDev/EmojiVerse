@@ -91,6 +91,13 @@
 .button-rounded {
   @apply text-lg font-semibold rounded-full px-6 ml-auto;
 }
+.button-rounded-ml0 {
+  @apply font-semibold rounded-full px-6;
+}
+.auto-height-animation {
+  height: calc-size(auto);
+}
+
 html {
   font-size: 16px;
 }

@@ -16,7 +16,7 @@ const ProfileBar = () => {
         <p className="text-secondary">Bio:🤪🤪🤪🤪🤪🤪</p>
       </div>
       <div className="flex h-[25%]">
-        <div className="flex-1 border-r-2 h-full hover:bg-secondary">
+        <div className="flex-1 border-r-2 h-full hover:bg-secondary transition-colors">
           <Link
             href="/create-post"
             className="h-full flex justify-center items-center flex-col"
@@ -25,7 +25,7 @@ const ProfileBar = () => {
             <h1>Create post</h1>
           </Link>
         </div>
-        <div className="flex-1 hover:bg-secondary">
+        <div className="flex-1 hover:bg-secondary transition-colors">
           <Link
             href="/profile"
             className="w-full h-full grid place-items-center text-2xl font-semibold"
