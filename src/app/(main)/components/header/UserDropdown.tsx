@@ -10,10 +10,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import pfpImg from "../../assets/Logo-emoji-verse.png";
+import { PiSignOutBold } from "react-icons/pi";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const UserDropdown = () => {
+  const username = "IvanHorvat";
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="h-[4.5rem] border-2 rounded-full w-56 p-4 flex items-center gap-x-2 hover:bg-accent">
@@ -23,13 +25,14 @@ const UserDropdown = () => {
         </Avatar>
         <h1 className="font-semibold text-2xl">Ivan Horvat</h1>
       </DropdownMenuTrigger>
+
       <DropdownMenuContent className="w-48">
-        <Link href="/profile">
-          <DropdownMenuItem>Profile</DropdownMenuItem>
+        <Link href={`/${username}`}>
+          <DropdownMenuItem>Public-profile</DropdownMenuItem>
         </Link>
-        <Link href="/create-post">
-          <DropdownMenuItem>Create post</DropdownMenuItem>
-        </Link>
+        <DropdownMenuItem className="bg-red-600 flex justify-between text-white">
+          Log out <PiSignOutBold className="size-6" />
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

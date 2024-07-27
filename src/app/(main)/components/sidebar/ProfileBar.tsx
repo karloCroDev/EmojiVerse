@@ -1,8 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { ChangeProfileModal, CreatePostModal } from "../modals/exports";
+
 import { IoAddOutline } from "react-icons/io5";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
 const ProfileBar = () => {
   return (
@@ -16,23 +19,19 @@ const ProfileBar = () => {
         <p className="text-secondary">Bio:🤪🤪🤪🤪🤪🤪</p>
       </div>
       <div className="flex h-[25%]">
-        <div className="flex-1 border-r-2 h-full hover:bg-secondary transition-colors">
-          <Link
-            href="/create-post"
-            className="h-full flex justify-center items-center flex-col"
-          >
+        <Dialog>
+          <DialogTrigger className="flex-1 border-r-2 h-full hover:bg-secondary transition-colors flex justify-center items-center flex-col">
             <IoAddOutline className="size-20" />
-            <h1>Create post</h1>
-          </Link>
-        </div>
-        <div className="flex-1 hover:bg-secondary transition-colors">
-          <Link
-            href="/profile"
-            className="w-full h-full grid place-items-center text-2xl font-semibold"
-          >
+            Create post
+          </DialogTrigger>
+          <CreatePostModal />
+        </Dialog>
+        <Dialog>
+          <DialogTrigger className="flex-1 hover:bg-secondary transition-colors grid place-items-center text-2xl font-semibold">
             My Profile
-          </Link>
-        </div>
+          </DialogTrigger>
+          <ChangeProfileModal />
+        </Dialog>
       </div>
     </aside>
   );
