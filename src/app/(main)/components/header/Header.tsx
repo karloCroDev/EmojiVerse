@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 const Header = () => {
   return (
     <nav>
-      <ul className="w-full h-[8rem] flex items-center px-24 gap-x-5">
+      <ul className="w-full h-[8rem] flex items-center px-24 gap-x-5 animate-fade">
         <li>
           <Logo link="/main-page" />
         </li>

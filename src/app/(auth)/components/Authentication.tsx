@@ -72,9 +72,7 @@ const Authentication = ({
     <>
       <div
         className={`w-10/12 animate-fade flex sm:flex-row flex-col sm:gap-x-10 sm:p-8 p-10 py-20  sm:rounded-2xl rounded-3xl  border-2 aspect-video sm:aspect-[4/3] ${
-          checkerSignIn
-            ? "sm:w-[50rem] "
-            : "sm:w-[55rem] sm:flex-row-reverse opacity-1"
+          checkerSignIn ? "sm:w-[50rem]" : "sm:w-[55rem] sm:flex-row-reverse "
         }  `}
       >
         <div className="flex-1 hidden sm:flex">

@@ -7,9 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Comments = () => {
-  const [liked, setLiked] = useState<boolean>(false);
-  const [showComments, setShowComments] = useState<boolean>(false);
-  const [showMore, setShowMore] = useState<boolean>(false);
+  const [liked, setLiked] = useState(false);
+  const [showComments, setShowComments] = useState(false);
+  const [showMore, setShowMore] = useState(false);
+  const [comment, setComment] = useState("");
+  console.log(comment);
   return (
     <>
       <div className="flex items-center justify-between">
@@ -57,6 +59,7 @@ const Comments = () => {
               type="text"
               placeholder="Your comment..."
               className="w-full h-full bg-transparent rounded-md pl-4 text-lg placeholder:text-secondary absolute left-0 top-0"
+              onChange={(e) => setComment(e.target.value)}
             />
             <Button
               variant="ghost"
