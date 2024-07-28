@@ -86,8 +86,8 @@
 .div-label {
   @apply flex items-center justify-between gap-x-2 w-[26rem];
 }
-.div-label-h3 {
-  @apply text-xl flex-1 text-center;
+.label-h3 {
+  @apply text-xl flex-1 text-center font-semibold;
 }
 .filter-input {
   @apply bg-transparent border-2 h-16 rounded-md px-4 placeholder:text-primary text-2xl font-semibold w-72;

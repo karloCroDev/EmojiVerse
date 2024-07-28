@@ -40,7 +40,7 @@ const ChangeProfileModal = () => {
         <h1 className="text-3xl font-bold ">Ivan Horvat</h1>
         <hr className="w-[90%]" />
         <label className="div-label">
-          <h3 className="div-label-h3">Username</h3>
+          <h3 className="label-h3">Username</h3>
           <input
             type="text"
             placeholder="...new username"
@@ -49,7 +49,7 @@ const ChangeProfileModal = () => {
           />
         </label>
         <label className="div-label">
-          <h3 className="div-label-h3">Password</h3>
+          <h3 className="label-h3">Password</h3>
           <input
             type="text"
             placeholder="...new username"
@@ -58,7 +58,7 @@ const ChangeProfileModal = () => {
           />
         </label>
         <label className="div-label">
-          <h3 className="div-label-h3 ">Bio</h3>
+          <h3 className="label-h3 ">Bio</h3>
           <input
             type="text"
             placeholder="...new bio"
@@ -79,7 +79,7 @@ const ChangeProfileModal = () => {
           >
             Public profile
           </button>
-          <Button>Save changes</Button>
+          <Button className="p-4 text-lg">Save changes</Button>
         </DialogClose>
       </DialogFooter>
     </DialogContent>

@@ -1,24 +1,70 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
+  DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
-const CreatePostModal = () => {
+const EmojiTextarea = () => {
+  const [contentText, setContentText] = useState("");
+  const countEmojis = contentText.split("").length; //I don't need to use useMemo or useContext
+
+  //Copy pasted regex that can only display emojis
+  const emojiRegex = /[\p{Emoji_Presentation}\u200D]+/gu;
+  // Regex pattern to match letters, in case user types a letter
+  const letterRegex = /[a-zA-Z]/;
+
+  const handleChange = (e: any) => {
+    const newText = e.target.value;
+
+    // Check for letters and log a message
+    if (letterRegex.test(newText)) {
+      console.log("Error!");
+    }
+
+    const onlyEmojis = newText.match(emojiRegex)?.join("") || "";
+    setContentText(onlyEmojis);
+  };
+
   return (
     <DialogContent>
       <DialogHeader>
         <DialogTitle>Create your own mysterious post 🤔❓</DialogTitle>
       </DialogHeader>
-      <DialogFooter>
-        <Button>Save</Button>
-      </DialogFooter>
+      <hr className="mt-[-4px]" />
+
+      <label htmlFor="content" className="flex flex-col gap-y-2 relative">
+        <h3 className="label-h3 !text-start">
+          Secret message 🤨 (emojis only)
+        </h3>
+        <textarea
+          id="content"
+          placeholder="Win: Win + . to access emojis |  "
+          className="h-[20rem] border-2 resize-none placeholder:text-secondary pl-2 pt-2 rounded-lg bg-transparent"
+          value={contentText}
+          onChange={handleChange}
+        />
+        <div className="absolute w-full px-2 bottom-2 text-secondary flex justify-between items-end">
+          {countEmojis}/100
+          <DialogClose>
+            <Button
+              className="p-4 text-lg font-semibold"
+              onClick={() => {
+                if (countEmojis <= 100) {
+                  console.log("Success");
+                }
+              }}
+            >
+              Post
+            </Button>
+          </DialogClose>
+        </div>
+      </label>
     </DialogContent>
   );
 };
 
-export default CreatePostModal;
+export default EmojiTextarea;
