@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   DialogContent,
   DialogHeader,
@@ -13,6 +13,7 @@ import EmojiPicker from "emoji-picker-react";
 const EmojiTextarea = () => {
   const [contentText, setContentText] = useState("");
   const [getEmojis, setGetEmojis] = useState(false);
+
   const showEmojis = () => {
     setGetEmojis(!getEmojis);
   };
@@ -47,18 +48,15 @@ const EmojiTextarea = () => {
 
         <textarea
           id="content"
-          placeholder="Win: Win + . to access emojis | Mac: fn + click "
+          placeholder="Win: Win + . | Mac: fn + click "
           className="h-[20rem] border-2 resize-none placeholder:text-secondary pl-2 pt-2 rounded-lg bg-transparent"
           value={contentText}
           onChange={handleChange}
         />
 
         <div className="absolute w-full px-4 bottom-4 text-secondary flex justify-between items-end">
-          <button>
-            <MdEmojiEmotions
-              className="hover:text-white size-10 transition-all"
-              onClick={showEmojis}
-            />
+          <button onClick={showEmojis}>
+            <MdEmojiEmotions className="hover:text-white size-10 transition-all" />
             {getEmojis ? (
               <EmojiPicker
                 onEmojiClick={(e) => {
@@ -73,6 +71,7 @@ const EmojiTextarea = () => {
             <Button
               className="p-4 text-lg font-semibold"
               onClick={() => {
+                setGetEmojis(false);
                 console.log("Hello world");
               }}
             >

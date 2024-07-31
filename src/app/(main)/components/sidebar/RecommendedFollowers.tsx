@@ -10,7 +10,11 @@ const RecommendedFollowers = () => {
         <AvatarFallback className="text-xl">AH</AvatarFallback>
       </Avatar>
       <div>
-        <h2 className="text-xl font-semibold">Ana Horvat</h2>
+        <Link href={`/$AnaHorvat}`}>
+          <h2 className="text-xl font-semibold hover:underline cursor-pointer transition-[underline]">
+            Ana Horvat
+          </h2>
+        </Link>
         <p className="text-sm">🤪🤪🤪🤪🤪</p>
       </div>
       <Button className="button-rounded">Follow</Button>

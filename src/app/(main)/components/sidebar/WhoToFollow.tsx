@@ -17,12 +17,12 @@ const WhoToFollow = () => {
         ))}
       </div>
       {!display ? (
-        <span
+        <button
           className="font-semibold text-lg text-secondary cursor-pointer"
           onClick={() => setDsiplay(true)}
         >
           Show more
-        </span>
+        </button>
       ) : null}
     </aside>
   );
