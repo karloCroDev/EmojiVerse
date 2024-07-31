@@ -7,15 +7,19 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { MdEmojiEmotions } from "react-icons/md";
+import EmojiPicker from "emoji-picker-react";
 
 const EmojiTextarea = () => {
   const [contentText, setContentText] = useState("");
-  const countEmojis = contentText.split("").length; //I don't need to use useMemo or useContext
-
+  const [getEmojis, setGetEmojis] = useState(false);
+  const showEmojis = () => {
+    setGetEmojis(!getEmojis);
+  };
   //Copy pasted regex that can only display emojis
   const emojiRegex = /[\p{Emoji_Presentation}\u200D]+/gu;
   // Regex pattern to match letters, in case user types a letter
-  const letterRegex = /[a-zA-Z]/;
+  const letterRegex = /[a-zA-Z]/gi;
 
   const handleChange = (e: any) => {
     const newText = e.target.value;
@@ -40,22 +44,36 @@ const EmojiTextarea = () => {
         <h3 className="label-h3 !text-start">
           Secret message 🤨 (emojis only)
         </h3>
+
         <textarea
           id="content"
-          placeholder="Win: Win + . to access emojis |  "
+          placeholder="Win: Win + . to access emojis | Mac: fn + click "
           className="h-[20rem] border-2 resize-none placeholder:text-secondary pl-2 pt-2 rounded-lg bg-transparent"
           value={contentText}
           onChange={handleChange}
         />
-        <div className="absolute w-full px-2 bottom-2 text-secondary flex justify-between items-end">
-          {countEmojis}/100
+
+        <div className="absolute w-full px-4 bottom-4 text-secondary flex justify-between items-end">
+          <button>
+            <MdEmojiEmotions
+              className="hover:text-white size-10 transition-all"
+              onClick={showEmojis}
+            />
+            {getEmojis ? (
+              <EmojiPicker
+                onEmojiClick={(e) => {
+                  setContentText(contentText + e.emoji);
+                  showEmojis();
+                }}
+              />
+            ) : null}
+          </button>
+
           <DialogClose>
             <Button
               className="p-4 text-lg font-semibold"
               onClick={() => {
-                if (countEmojis <= 100) {
-                  console.log("Success");
-                }
+                console.log("Hello world");
               }}
             >
               Post
