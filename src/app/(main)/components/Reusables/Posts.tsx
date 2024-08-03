@@ -13,11 +13,11 @@ interface PostsProps {
 const Posts = ({ username, pfp, bio, content }: PostsProps) => {
   const initals = username.split(" ").map((x) => x[0].toUpperCase());
   return (
-    <section className="sm:border-2 rounded-xl mt-5 py-4 sm:p-8 flex flex-col gap-y-4 h-max-[50rem]">
+    <section className="sm:border-2 rounded-xl  py-4 sm:p-8 flex flex-col gap-y-4 h-max-[50rem]">
       <div className="flex items-center gap-x-4">
-        <Avatar className="w-16 h-16">
+        <Avatar className="sm:w-16 sm:h-16 h-12 w-12 ">
           <AvatarImage src={pfp} alt={`${username} pfp`} />
-          <AvatarFallback className="text-2xl font-semibold">
+          <AvatarFallback className="sm:text-2xl text-md font-semibold">
             {initals}
           </AvatarFallback>
         </Avatar>

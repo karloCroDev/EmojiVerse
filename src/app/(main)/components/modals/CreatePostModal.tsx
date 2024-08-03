@@ -55,7 +55,7 @@ const EmojiTextarea = () => {
         />
 
         <div className="absolute w-full px-4 bottom-4 text-secondary flex justify-between items-end">
-          <button onClick={showEmojis}>
+          <button>
             {getEmojis ? (
               <EmojiPicker
                 onEmojiClick={(e) => {
@@ -64,7 +64,10 @@ const EmojiTextarea = () => {
                 }}
               />
             ) : (
-              <MdEmojiEmotions className="hover:text-white size-10 transition-all" />
+              <MdEmojiEmotions
+                className="hover:text-white size-10 transition-all"
+                onClick={showEmojis}
+              />
             )}
           </button>
 
