@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 const Header = () => {
   return (
     <nav>
-      <ul className="w-full h-[8rem] flex items-center px-24 gap-x-5 animate-fade">
+      <ul className="h-[8rem] flex items-center px-4 sm:px-24 gap-x-4 animate-fade ">
         <li>
           <Logo link="/main-page" />
         </li>
@@ -18,7 +18,7 @@ const Header = () => {
         </li>
         <li>
           <Button className="py-8" variant="outline">
-            <IoMdNotifications className="size-10" />
+            <IoMdNotifications className=" size-8  sm:size-10" />
           </Button>
         </li>
         <li>

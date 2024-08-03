@@ -5,7 +5,7 @@ import RecommendedFollowers from "./RecommendedFollowers";
 const WhoToFollow = () => {
   const [display, setDsiplay] = useState<boolean>(false);
   return (
-    <aside className="border-2 rounded-3xl p-8 flex flex-col items-start gap-y-6 animate-fade">
+    <aside className="border-2 rounded-3xl p-8  flex-col items-start gap-y-6 animate-fade hidden sm:flex">
       <HeaderOfComponents title="Who to follow" />
       <div
         className={`flex flex-col gap-y-4 flex-1 ${

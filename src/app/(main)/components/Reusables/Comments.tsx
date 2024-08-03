@@ -48,11 +48,12 @@ const Comments = () => {
                   <p className="text-sm">🤪🤪🤪🤪🤪</p>
                 </div>
               </div>
-              <p className="text-lg">
-                Hmmmm... does this mean impossible mission
-              </p>
+
               <Button className="button-rounded-ml0 text-sm">Follow</Button>
             </div>
+            <p className="text-lg text-center w-full">
+              Hmmmm... does this mean impossible mission
+            </p>
           </section>
           <div className="w-full border-2 h-16 rounded-md flex items-center justify-end pr-4 relative">
             <input

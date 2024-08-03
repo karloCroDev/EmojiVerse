@@ -9,7 +9,7 @@ const Logo = ({ link, pos }: { link: string; pos?: string }) => {
       <Image
         src={LogoImg}
         alt="Logo"
-        className="object-cover rounded-md h-20 w-64 "
+        className="object-cover rounded-md w-48 h-2- sm:h-20 sm:w-64"
       />
     </Link>
   );

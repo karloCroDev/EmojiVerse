@@ -9,7 +9,7 @@ import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
 const ProfileBar = () => {
   return (
-    <aside className="border-2 rounded-3xl overflow-hidden animate-fade">
+    <aside className="border-2 rounded-3xl overflow-hidden animate-fade hidden sm:block ">
       <div className="h-[75%] border-b-2 flex flex-col justify-center items-center gap-y-6 ">
         <Avatar className="w-[10rem] h-[10rem]">
           <AvatarImage alt="Profile picture" />
