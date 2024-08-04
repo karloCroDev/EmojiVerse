@@ -7,11 +7,16 @@ import React, { useEffect } from "react";
 
 const AuthStateChagedChecker = () => {
   const { push } = useRouter();
-  const { setUid, uid } = useAuthState((state) => state);
+  const { setUid, uid, pfp, setPfp, setUsername, username } = useAuthState(
+    (state) => state
+  );
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUid(user.uid);
+        console.log(user);
+        setUsername(user.displayName || "");
+        setPfp(user.photoURL || "");
         push("/main-page");
       } else {
       }
@@ -21,6 +26,7 @@ const AuthStateChagedChecker = () => {
   }, []);
 
   console.log(uid);
+  console.log(username);
   return null;
 };
 

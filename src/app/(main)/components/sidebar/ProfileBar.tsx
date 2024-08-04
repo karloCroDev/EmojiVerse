@@ -1,6 +1,4 @@
 import React from "react";
-import Link from "next/link";
-import Image from "next/image";
 import { ChangeProfileModal, CreatePostModal } from "../modals/exports";
 
 import { IoAddOutline } from "react-icons/io5";

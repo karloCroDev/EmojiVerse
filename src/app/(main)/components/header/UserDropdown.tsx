@@ -11,11 +11,18 @@ import { ChangeProfileModal, CreatePostModal } from "../modals/exports";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { useRouter } from "next/navigation";
+
 import { auth } from "@/app/firebase/firebase";
 import { signOut } from "firebase/auth";
+import { useAuthState } from "@/app/globals/global-auth-store";
 
 const UserDropdown = () => {
-  const username = "IvanHorvat";
+  const { username, pfp, initials } = useAuthState((state) => ({
+    username: state.username,
+    pfp: state.pfp,
+    initials: state.initials,
+  }));
+  console.log(username);
   const { push } = useRouter();
   const signOutFn = () => {
     signOut(auth);
@@ -25,10 +32,10 @@ const UserDropdown = () => {
     <DropdownMenu>
       <DropdownMenuTrigger className="sm:h-16   sm:border-2 rounded-full p-4 flex items-center gap-x-2 hover:bg-accent">
         <Avatar className="h-16 w-16 text-xl  sm:h-10 sm:w-10 sm:text-base ">
-          <AvatarImage alt="Profile picture" />
-          <AvatarFallback>IH</AvatarFallback>
+          <AvatarImage src={pfp} alt="Profile picture" />
+          <AvatarFallback>{initials}</AvatarFallback>
         </Avatar>
-        <h1 className="hidden sm:block font-semibold text-2xl">Ivan Horvat</h1>
+        <h1 className="hidden sm:block font-semibold text-2xl">{username}</h1>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="mr-6 sm:mr-0 w-48">

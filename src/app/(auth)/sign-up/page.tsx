@@ -4,7 +4,7 @@ import SignUpImage from "../../assets/sign-up-img.jpg";
 import Authentication from "../components/Authentication";
 import { auth, db } from "@/app/firebase/firebase";
 
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
 import { useLoadingState } from "../loading-store";
 
@@ -20,8 +20,15 @@ const page = () => {
     setAuthProcess(true);
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      await setDoc(doc(db, "users", auth.currentUser?.uid!), {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      await updateProfile(userCredential.user!, {
+        displayName: username,
+      });
+      await setDoc(doc(db, "users", userCredential.user?.uid!), {
         imgUrl: "",
         username: username,
       });
