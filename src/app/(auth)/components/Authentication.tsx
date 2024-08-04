@@ -3,9 +3,10 @@ import React, { useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-
+import Spinner from "@/app/globals/Spinner";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
+import { useLoadingState } from "../loading-store";
 
 interface AuthenticationProps {
   image: any | string;
@@ -79,6 +80,8 @@ const Authentication = ({
       ),
     });
   };
+
+  const { authProcess, setAuthProcess } = useLoadingState((state) => state);
   return (
     <>
       <div
@@ -130,8 +133,8 @@ const Authentication = ({
                 required
               />
             </label>
-            <Button className="bg-primary text-background font-semibold text-3xl w-full h-20 sm:h-16 sm:rounded rounded-lg active:scale-95 mt-5 sm:mt-2 xl:mt-5 ">
-              {page}
+            <Button className="bg-primary text-background font-semibold text-3xl w-full h-20 sm:h-16 sm:rounded rounded-lg active:scale-95 mt-5 sm:mt-2 xl:mt-5">
+              {!authProcess ? page : <Spinner />}
             </Button>
             <p className="text-secondary text-sm">
               {type === "sign-up"

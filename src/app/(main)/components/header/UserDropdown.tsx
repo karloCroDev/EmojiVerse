@@ -1,25 +1,26 @@
 "use client";
 import React from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { useAuthStore } from "@/app/globals/global-store";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { PiSignOutBold } from "react-icons/pi";
 import { ChangeProfileModal, CreatePostModal } from "../modals/exports";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { useRouter } from "next/navigation";
+import { auth } from "@/app/firebase/firebase";
+import { signOut } from "firebase/auth";
+
 const UserDropdown = () => {
   const username = "IvanHorvat";
   const { push } = useRouter();
+  const signOutFn = () => {
+    signOut(auth);
+    push("/sign-in");
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="sm:h-16   sm:border-2 rounded-full p-4 flex items-center gap-x-2 hover:bg-accent">
@@ -55,7 +56,10 @@ const UserDropdown = () => {
           Public profile
         </DropdownMenuItem>
         {/*  */}
-        <DropdownMenuItem className="bg-red-600 flex justify-between text-white">
+        <DropdownMenuItem
+          className="bg-red-600 flex justify-between text-white"
+          onClick={signOutFn}
+        >
           Log out <PiSignOutBold className="size-6" />
         </DropdownMenuItem>
       </DropdownMenuContent>

@@ -2,21 +2,25 @@
 import React from "react";
 import SignInImage from "../../assets/sign-in-img.jpg";
 import Authentication from "../components/Authentication";
-
+import { useLoadingState } from "../loading-store";
 import { auth } from "@/app/firebase/firebase";
-
 import { signInWithEmailAndPassword } from "firebase/auth";
+
 const page = () => {
+  const setAuthProcess = useLoadingState((state) => state.setAuthProcess);
+
   const signInFunc = async (
     email: string,
     password: string,
     errorToast: () => void
   ) => {
+    setAuthProcess(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
       console.error(error);
       errorToast();
+      setAuthProcess(false);
     }
   };
   return (

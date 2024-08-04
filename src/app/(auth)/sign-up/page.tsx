@@ -6,14 +6,19 @@ import { auth, db } from "@/app/firebase/firebase";
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
+import { useLoadingState } from "../loading-store";
 
 const page = () => {
+  const setAuthProcess = useLoadingState((state) => state.setAuthProcess);
+
   const signUpFunc = async (
     username: string,
     email: string,
     password: string,
     errorToastFunc: () => void
   ) => {
+    setAuthProcess(true);
+
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       await setDoc(doc(db, "users", auth.currentUser?.uid!), {
@@ -23,6 +28,7 @@ const page = () => {
     } catch (error) {
       console.error(error);
       errorToastFunc();
+      setAuthProcess(false);
     }
   };
   return (
