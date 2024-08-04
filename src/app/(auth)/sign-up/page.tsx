@@ -4,11 +4,7 @@ import SignUpImage from "../../assets/sign-up-img.jpg";
 import Authentication from "../components/Authentication";
 import { auth, db } from "@/app/firebase/firebase";
 
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
 
 const page = () => {

@@ -1,13 +1,13 @@
 "use client";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/firebase";
-import { useAuthStore } from "./global-store";
+import { useAuthState } from "./global-auth-store";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 const AuthStateChagedChecker = () => {
   const { push } = useRouter();
-  const { setUid, uid } = useAuthStore((state) => state);
+  const { setUid, uid } = useAuthState((state) => state);
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {

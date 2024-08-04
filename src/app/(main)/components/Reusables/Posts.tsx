@@ -13,7 +13,7 @@ interface PostsProps {
 const Posts = ({ username, pfp, bio, content }: PostsProps) => {
   const initals = username.split(" ").map((x) => x[0].toUpperCase());
   return (
-    <section className="sm:border-2 rounded-xl  py-4 sm:p-8 flex flex-col gap-y-4 h-max-[50rem]">
+    <section className="sm:border-2 rounded-xl mt-2 sm:mt-5 py-4 sm:p-8 flex flex-col gap-y-8 h-max-[50rem]">
       <div className="flex items-center gap-x-4">
         <Avatar className="sm:w-16 sm:h-16 h-12 w-12 ">
           <AvatarImage src={pfp} alt={`${username} pfp`} />
@@ -31,8 +31,9 @@ const Posts = ({ username, pfp, bio, content }: PostsProps) => {
         </div>
         <Button className="button-rounded ">Follow</Button>
       </div>
-      <p className="flex-1 flex justify-cente text-center">{content}</p>
+      <p className="flex-1 flex justify-center text-center">{content}</p>
       <Comments />
+      <hr className="block sm:hidden border-b" />
     </section>
   );
 };
