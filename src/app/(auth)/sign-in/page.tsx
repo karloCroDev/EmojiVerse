@@ -17,10 +17,10 @@ const page = () => {
     try {
       setAuthProcess(true);
       await signInWithEmailAndPassword(auth, email, password);
-      setAuthProcess(false);
     } catch (error) {
       console.error(error);
       errorToast();
+    } finally {
       setAuthProcess(false);
     }
   };

@@ -31,11 +31,10 @@ const page = () => {
         followers: [],
         messgaes: [],
       });
-
-      setAuthProcess(false);
     } catch (error) {
       console.error(error);
       errorToastFunc();
+    } finally {
       setAuthProcess(false);
     }
   };
