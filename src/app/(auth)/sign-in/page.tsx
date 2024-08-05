@@ -14,9 +14,10 @@ const page = () => {
     password: string,
     errorToast: () => void
   ) => {
-    setAuthProcess(true);
     try {
+      setAuthProcess(true);
       await signInWithEmailAndPassword(auth, email, password);
+      setAuthProcess(false);
     } catch (error) {
       console.error(error);
       errorToast();

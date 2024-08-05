@@ -17,21 +17,21 @@ const page = () => {
     password: string,
     errorToastFunc: () => void
   ) => {
-    setAuthProcess(true);
-
     try {
+      setAuthProcess(true);
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-      await updateProfile(userCredential.user!, {
-        displayName: username,
-      });
-      await setDoc(doc(db, "users", userCredential.user?.uid!), {
-        imgUrl: "",
+      await setDoc(doc(db, "users", userCredential.user.uid!), {
         username: username,
+        imgUrl: "",
+        id: userCredential.user.uid,
+        followers: [],
       });
+
+      setAuthProcess(false);
     } catch (error) {
       console.error(error);
       errorToastFunc();

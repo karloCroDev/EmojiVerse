@@ -4,7 +4,7 @@ import { ChangeProfileModal, CreatePostModal } from "../modals/exports";
 import { IoAddOutline } from "react-icons/io5";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-
+import { useAuthState } from "@/app/globals/global-auth-store";
 const ProfileBar = () => {
   return (
     <aside className="border-2 rounded-3xl overflow-hidden animate-fade hidden sm:block ">

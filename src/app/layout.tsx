@@ -26,9 +26,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AuthStateChagedChecker />
-
-          {children}
+          <AuthStateChagedChecker>{children}</AuthStateChagedChecker>
           <Toaster />
         </ThemeProvider>
       </body>

@@ -11,7 +11,7 @@ const Comments = () => {
   const [showComments, setShowComments] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const [comment, setComment] = useState("");
-  console.log(comment);
+
   return (
     <>
       <div className="flex items-center justify-between">
