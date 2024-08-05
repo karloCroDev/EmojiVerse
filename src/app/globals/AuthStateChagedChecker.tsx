@@ -12,22 +12,27 @@ const AuthStateChagedChecker = ({
   children: React.ReactNode;
 }) => {
   const { push } = useRouter();
-  const { setUid, setPfp, setUsername } = useAuthState((state) => ({
-    setUid: state.setUid,
-    setPfp: state.setPfp,
-    setUsername: state.setUsername,
-  }));
+  const { setUid, setPfp, setUsername, setBio, setFollowers } = useAuthState(
+    (state) => ({
+      setUid: state.setUid,
+      setPfp: state.setPfp,
+      setUsername: state.setUsername,
+      setBio: state.setBio,
+      setFollowers: state.setFollowers,
+    })
+  );
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setUid(user.uid);
 
         const docSnap = await getDoc(doc(db, "users", user.uid));
-        console.log(docSnap);
         if (docSnap.exists()) {
           const data = docSnap.data();
           setUsername(data.username);
           setPfp(data.imgUrl);
+          setBio(data.bio);
+          setFollowers(data.followers.length);
         }
         push("/main-page");
       }

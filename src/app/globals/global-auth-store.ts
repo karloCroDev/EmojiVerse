@@ -9,6 +9,10 @@ interface AuthState {
   initials: string;
   pfp: string;
   setPfp: (val: string) => void;
+  bio: string;
+  setBio: (val: string) => void;
+  followers: number;
+  setFollowers: (val: number) => void;
 }
 
 export const useAuthState = create<AuthState>((set) => {
@@ -29,5 +33,9 @@ export const useAuthState = create<AuthState>((set) => {
     initials: "",
     pfp: "",
     setPfp: (val) => set({ pfp: val }),
+    bio: "",
+    setBio: (val) => set({ bio: val }),
+    followers: 0,
+    setFollowers: (val) => set({ followers: val }),
   };
 });

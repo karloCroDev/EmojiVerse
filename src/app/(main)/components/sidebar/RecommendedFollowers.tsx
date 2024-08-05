@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+
 const RecommendedFollowers = () => {
   return (
     <div className="flex items-center gap-x-4">

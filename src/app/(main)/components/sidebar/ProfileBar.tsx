@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { ChangeProfileModal, CreatePostModal } from "../modals/exports";
 
@@ -6,15 +7,27 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { useAuthState } from "@/app/globals/global-auth-store";
 const ProfileBar = () => {
+  const { username, pfp, bio, initials, followers } = useAuthState((state) => ({
+    username: state.username,
+    pfp: state.pfp,
+    initials: state.initials,
+    bio: state.bio,
+    followers: state.followers,
+  }));
   return (
     <aside className="border-2 rounded-3xl overflow-hidden animate-fade hidden sm:block ">
       <div className="h-[75%] border-b-2 flex flex-col justify-center items-center gap-y-6 ">
         <Avatar className="w-[10rem] h-[10rem]">
-          <AvatarImage alt="Profile picture" />
-          <AvatarFallback className="text-4xl">IH</AvatarFallback>
+          <AvatarImage src={pfp} alt="Profile picture" />
+          <AvatarFallback className="text-4xl">{initials}</AvatarFallback>
         </Avatar>
-        <h1 className="font-bold text-4xl">Ivan Horvat</h1>
-        <p className="text-secondary">Bio:🤪🤪🤪🤪🤪🤪</p>
+        <h1 className="font-bold text-4xl">{username}</h1>
+        <div className="flex flex-col">
+          <p className="text-secondary">
+            Followers: {followers ?? "...add bio"}
+          </p>
+          <p className="text-secondary">Bio: {bio || "...add bio"}</p>
+        </div>
       </div>
       <div className="flex h-[25%]">
         <Dialog>

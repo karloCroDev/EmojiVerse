@@ -27,8 +27,9 @@ const page = () => {
       await setDoc(doc(db, "users", userCredential.user.uid!), {
         username: username,
         imgUrl: "",
-        id: userCredential.user.uid,
+        bio: "",
         followers: [],
+        messgaes: [],
       });
 
       setAuthProcess(false);
