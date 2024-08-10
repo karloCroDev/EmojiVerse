@@ -30,7 +30,7 @@ const AuthStateChagedChecker = ({
         if (docSnap.exists()) {
           const data = docSnap.data();
           setUsername(data.username);
-          setPfp(data.imgUrl);
+          setPfp(data.pfp);
           setBio(data.bio);
           setFollowers(data.followers.length);
         }

@@ -26,7 +26,7 @@ const page = () => {
       );
       await setDoc(doc(db, "users", userCredential.user.uid!), {
         username: username,
-        imgUrl: "",
+        pfp: "",
         bio: "",
         followers: [],
         messgaes: [],

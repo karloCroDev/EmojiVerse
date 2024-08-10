@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import {
@@ -17,23 +17,37 @@ import { useAuthState } from "@/app/globals/global-auth-store";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db, storage } from "@/app/firebase/firebase";
 import { updatePassword } from "firebase/auth";
-import { ref } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const ChangeProfileModal = () => {
   const { push } = useRouter();
-  const { username, initials, uid, bio, pfp, user } = useAuthState((state) => ({
+  const {
+    username,
+    initials,
+    uid,
+    bio,
+    pfp,
+    user,
+    setUsername,
+    setBio,
+    setPfp,
+  } = useAuthState((state) => ({
     username: state.username,
     initials: state.initials,
     uid: state.uid,
     bio: state.bio,
     pfp: state.pfp,
     user: state.user,
+
+    setUsername: state.setUsername,
+    setPfp: state.setPfp,
+    setBio: state.setBio,
   }));
 
   const [changeUsername, setChangeUsername] = useState("");
   const [changeBio, setChangeBio] = useState("");
   const [changePassword, setChangePassword] = useState("");
-  const [changePfp, setChangePfp] = useState("");
+  const [changePfp, setChangePfp] = useState<any>("");
 
   const preventUserFromSavingChanges = !(
     changeBio.length > 4 ||
@@ -41,29 +55,46 @@ const ChangeProfileModal = () => {
     changeUsername.length > 3 ||
     changePfp
   );
-
+  console.log(changePfp);
   const modifyPfp = async () => {
-    const pfpRef = ref(storage, `images/${changePfp}`);
+    if (changePfp) {
+      const pfpRef = ref(storage, `pfp/${uid}`);
+      await uploadBytes(pfpRef, changePfp);
+      const image = await getDownloadURL(pfpRef);
+      setPfp(image);
+      setChangePfp("");
+      console.log(pfp);
+    }
   };
+
   const modifyProfile = async () => {
+    const usernameChecker =
+      changeUsername.length > 2 ? changeUsername : username;
+    const bioChecker = changeBio.length > 5 ? changeBio : bio;
+
+    setUsername(usernameChecker);
+    setBio(bioChecker);
+
     await updateDoc(doc(db, "users", uid), {
-      username: changeUsername.length > 2 ? changeUsername : username,
-      bio: changeBio.length > 5 ? changeBio : bio,
-      pfp: changePfp || pfp,
+      username: usernameChecker,
+      bio: bioChecker,
+      pfp: pfp,
     });
   };
-
   const modifyPassword = async () => {
     if (changePassword.length > 5) {
       await updatePassword(user, changePassword);
-      console.log(true);
       //Make toast
     } else {
       //Make toast
       console.log(false);
     }
   };
-
+  //Doing this only on modal, so that only on modal chnages reflec, also it was rendering too much, so I fixed with useMemo()
+  const srcImage = useMemo(
+    () => (changePfp ? URL.createObjectURL(changePfp) : pfp),
+    [changePfp, pfp]
+  );
   return (
     <DialogContent>
       <DialogHeader>
@@ -73,7 +104,11 @@ const ChangeProfileModal = () => {
       <div className="w-full flex flex-col items-center gap-y-4">
         <label htmlFor="picture-id">
           <Avatar className="w-[10rem] h-[10rem] cursor-pointer relative !overflow-visible">
-            <AvatarImage alt="Profile picture" />
+            <AvatarImage
+              alt="Profile picture"
+              src={srcImage}
+              className="rounded-full"
+            />
             <AvatarFallback className="text-4xl">{initials}</AvatarFallback>
             <FaCamera className="absolute size-8 z-10 right-5 bottom-0" />
           </Avatar>
@@ -82,7 +117,11 @@ const ChangeProfileModal = () => {
           type="file"
           className="hidden"
           id="picture-id"
-          onChange={(e) => setChangePfp(e.target.value)}
+          onChange={(e) => {
+            if (e.target.files) {
+              setChangePfp(e.target.files[0]);
+            }
+          }}
         />
         <h1 className="text-3xl font-bold ">{username}</h1>
         <hr className="w-[90%]" />
