@@ -20,19 +20,20 @@ import { updatePassword } from "firebase/auth";
 
 const ChangeProfileModal = () => {
   const { push } = useRouter();
-  const { username, initials, uid, bio, pfp } = useAuthState((state) => ({
+  const { username, initials, uid, bio, pfp, user } = useAuthState((state) => ({
     username: state.username,
     initials: state.initials,
     uid: state.uid,
     bio: state.bio,
     pfp: state.pfp,
+    user: state.user,
   }));
   const [changeUsername, setChangeUsername] = useState("");
   const [changeBio, setChangeBio] = useState("");
   const [changePassword, setChangePassword] = useState("");
   const [changePfp, setChangePfp] = useState("");
 
-  console.log(changePfp);
+  console.log(changePassword);
 
   const modifyProfile = async () => {
     if (changeUsername.length > 2 || changeBio.length > 2) {
@@ -42,6 +43,7 @@ const ChangeProfileModal = () => {
         bio: changeBio.length > 2 && changeBio.length < 7 ? changeBio : bio,
         // pfp: changePfp || pfp,
       });
+      //Make toast
     } else {
       //make toast over here
     }
@@ -49,10 +51,12 @@ const ChangeProfileModal = () => {
 
   const modifyPassword = async () => {
     if (changePassword.length > 5) {
-      await updatePassword(auth.currentUser!, changePassword);
+      await updatePassword(user, changePassword);
+      console.log(true);
       //Make toast
     } else {
       //Make toast
+      console.log(false);
     }
   };
 

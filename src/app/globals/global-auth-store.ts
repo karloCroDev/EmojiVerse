@@ -13,6 +13,8 @@ interface AuthState {
   setBio: (val: string) => void;
   followers: number;
   setFollowers: (val: number) => void;
+  user: any;
+  setUser: (val: object) => void;
 }
 
 export const useAuthState = create<AuthState>((set) => {
@@ -37,5 +39,7 @@ export const useAuthState = create<AuthState>((set) => {
     setBio: (val) => set({ bio: val }),
     followers: 0,
     setFollowers: (val) => set({ followers: val }),
+    user: {},
+    setUser: (val) => set({ user: val }),
   };
 });

@@ -6,6 +6,7 @@ import { IoAddOutline } from "react-icons/io5";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { useAuthState } from "@/app/globals/global-auth-store";
+
 const ProfileBar = () => {
   const { username, pfp, bio, initials, followers } = useAuthState((state) => ({
     username: state.username,
@@ -14,6 +15,7 @@ const ProfileBar = () => {
     bio: state.bio,
     followers: state.followers,
   }));
+
   return (
     <aside className="border-2 rounded-3xl overflow-hidden animate-fade hidden sm:block ">
       <div className="h-[75%] border-b-2 flex flex-col justify-center items-center gap-y-6 ">
