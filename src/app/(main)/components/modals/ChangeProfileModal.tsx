@@ -15,8 +15,9 @@ import { Button } from "@/components/ui/button";
 
 import { useAuthState } from "@/app/globals/global-auth-store";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import { auth, db } from "@/app/firebase/firebase";
+import { db, storage } from "@/app/firebase/firebase";
 import { updatePassword } from "firebase/auth";
+import { ref } from "firebase/storage";
 
 const ChangeProfileModal = () => {
   const { push } = useRouter();
@@ -28,25 +29,28 @@ const ChangeProfileModal = () => {
     pfp: state.pfp,
     user: state.user,
   }));
+
   const [changeUsername, setChangeUsername] = useState("");
   const [changeBio, setChangeBio] = useState("");
   const [changePassword, setChangePassword] = useState("");
   const [changePfp, setChangePfp] = useState("");
 
-  console.log(changePassword);
+  const preventUserFromSavingChanges = !(
+    changeBio.length > 4 ||
+    changePassword.length > 5 ||
+    changeUsername.length > 3 ||
+    changePfp
+  );
 
+  const modifyPfp = async () => {
+    const pfpRef = ref(storage, `images/${changePfp}`);
+  };
   const modifyProfile = async () => {
-    if (changeUsername.length > 2 || changeBio.length > 2) {
-      //To reduce calls
-      await updateDoc(doc(db, "users", uid), {
-        username: changeUsername.length > 2 ? changeUsername : username,
-        bio: changeBio.length > 2 && changeBio.length < 7 ? changeBio : bio,
-        // pfp: changePfp || pfp,
-      });
-      //Make toast
-    } else {
-      //make toast over here
-    }
+    await updateDoc(doc(db, "users", uid), {
+      username: changeUsername.length > 2 ? changeUsername : username,
+      bio: changeBio.length > 5 ? changeBio : bio,
+      pfp: changePfp || pfp,
+    });
   };
 
   const modifyPassword = async () => {
@@ -86,7 +90,7 @@ const ChangeProfileModal = () => {
           <h3 className="label-h3">Username</h3>
           <input
             type="text"
-            placeholder="...new username"
+            placeholder="...min 3 charachters"
             className="form-label-input"
             onChange={(e) => setChangeUsername(e.target.value)}
           />
@@ -95,7 +99,7 @@ const ChangeProfileModal = () => {
           <h3 className="label-h3">Password</h3>
           <input
             type="text"
-            placeholder="...new password"
+            placeholder="...min 6 charachters"
             className="form-label-input"
             onChange={(e) => setChangePassword(e.target.value)}
           />
@@ -104,34 +108,44 @@ const ChangeProfileModal = () => {
           <h3 className="label-h3 ">Bio</h3>
           <input
             type="text"
-            placeholder="...new bio"
+            placeholder="...min 5 emojis"
             className="form-label-input"
             onChange={(e) => setChangeBio(e.target.value)}
           />
         </label>
         <hr className="w-[90%]" />
       </div>
+
       <DialogFooter>
-        <DialogClose className="flex justify-between items-center w-full ">
-          <button
-            className="text-secondary"
-            onClick={
-              () => push(`/${username}`)
-              //I had to do it like this because modal won't close on imported Link component from next.js
-            }
+        <div className="flex justify-between items-center w-full ">
+          <DialogClose>
+            <button
+              className="text-secondary"
+              onClick={
+                () => push(`/${username}`)
+                //I had to do it like this because modal won't close on imported Link component from next.js
+              }
+            >
+              Public profile
+            </button>
+          </DialogClose>
+          <DialogClose
+            disabled={preventUserFromSavingChanges}
+            className="disabled:cursor-not-allowed"
           >
-            Public profile
-          </button>
-          <Button
-            className="p-4 text-lg"
-            onClick={async () => {
-              await modifyPassword();
-              await modifyProfile();
-            }}
-          >
-            Save changes
-          </Button>
-        </DialogClose>
+            <Button
+              className="p-4 text-lg disabled:cursor-not-allowed"
+              disabled={preventUserFromSavingChanges}
+              onClick={async () => {
+                await modifyPfp();
+                await modifyPassword();
+                await modifyProfile();
+              }}
+            >
+              Save changes
+            </Button>
+          </DialogClose>
+        </div>
       </DialogFooter>
     </DialogContent>
   );
