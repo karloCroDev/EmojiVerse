@@ -9,7 +9,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 const Comments = () => {
   const [liked, setLiked] = useState(false);
   const [showComments, setShowComments] = useState(false);
-  const [showMore, setShowMore] = useState(false);
   const [comment, setComment] = useState("");
 
   return (
@@ -34,27 +33,30 @@ const Comments = () => {
       </div>
       {showComments ? (
         <>
-          <section className="flex flex-col items-start gap-y-4 relative max-h-[21rem] overflow-scroll ">
-            <div className="flex items-center justify-between w-full">
-              <div className="flex gap-x-2">
-                <Avatar className="w-12 h-12">
-                  <AvatarImage src="" alt={`pfp`} />
-                  <AvatarFallback className="text-lg font-semibold">
-                    IH
-                  </AvatarFallback>
-                </Avatar>
-                <div className="h-full flex flex-col justify-center">
-                  <h2 className="text-xl font-semibold ">Ivan</h2>
-                  <p className="text-sm">🤪🤪🤪🤪🤪</p>
+          <article className="flex flex-col items-start gap-y-4 relative max-h-60 overflow-scroll ">
+            <div className="w-full">
+              <div className="flex items-center justify-between w-full">
+                <div className="flex gap-x-2">
+                  <Avatar className="w-12 h-12">
+                    <AvatarImage src="" alt={`pfp`} />
+                    <AvatarFallback className="text-lg font-semibold">
+                      IH
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="h-full flex flex-col justify-center">
+                    <h2 className="text-xl font-semibold ">Ivan</h2>
+                    <p className="text-sm">🤪🤪🤪🤪🤪</p>
+                  </div>
                 </div>
-              </div>
 
-              <Button className="button-rounded-ml0 text-sm">Follow</Button>
+                <Button className="button-rounded-ml0 text-sm">Follow</Button>
+              </div>
+              <p className="text-lg text-center w-full">
+                Hmmmm... does this mean impossible mission
+              </p>
             </div>
-            <p className="text-lg text-center w-full">
-              Hmmmm... does this mean impossible mission
-            </p>
-          </section>
+          </article>
+
           <div className="w-full border-2 h-16 rounded-md flex items-center justify-end pr-4 relative">
             <input
               type="text"

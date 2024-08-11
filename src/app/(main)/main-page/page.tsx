@@ -2,6 +2,7 @@ import React from "react";
 import HeaderOfComponents from "../components/Reusables/HeaderOfComponents";
 import Filters from "./components/Filters";
 import Posts from "../components/Reusables/Posts";
+
 const page = () => {
   return (
     <section className="h-full w-full flex flex-col gap-6 animate-fade">

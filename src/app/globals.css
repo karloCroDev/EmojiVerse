@@ -100,6 +100,7 @@
   @apply font-semibold rounded-full px-6;
 }
 
+/* Don't do this ever again */
 html {
   font-size: 16px;
 }
