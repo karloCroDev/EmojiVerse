@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   DialogContent,
   DialogHeader,
@@ -10,6 +10,10 @@ import { Button } from "@/components/ui/button";
 import { MdEmojiEmotions } from "react-icons/md";
 import EmojiPicker from "emoji-picker-react";
 
+import { db } from "@/app/firebase/firebase";
+import { addDoc, collection } from "firebase/firestore";
+import { useAuthState } from "@/app/globals/global-auth-store";
+
 const EmojiTextarea = () => {
   const [contentText, setContentText] = useState("");
   const [getEmojis, setGetEmojis] = useState(false);
@@ -17,6 +21,7 @@ const EmojiTextarea = () => {
   const showEmojis = () => {
     setGetEmojis(!getEmojis);
   };
+
   //Copy pasted regex that can only display emojis
   const emojiRegex = /[\p{Emoji_Presentation}\u200D]+/gu;
   // Regex pattern to match letters, in case user types a letter
@@ -33,7 +38,23 @@ const EmojiTextarea = () => {
     const onlyEmojis = newText.match(emojiRegex)?.join("") || "";
     setContentText(onlyEmojis);
   };
+  //Only contentText is chaning
+  const checkDisabled = contentText.length < 5 && true;
 
+  //Firebase
+
+  const { uid } = useAuthState((state) => ({
+    uid: state.uid,
+  }));
+  const createPost = async () => {
+    await addDoc(collection(db, "posts"), {
+      authorId: uid,
+      content: contentText,
+      date: new Date(),
+      likes: [],
+      comments: [],
+    });
+  };
   return (
     <DialogContent>
       <DialogHeader>
@@ -48,7 +69,7 @@ const EmojiTextarea = () => {
 
         <textarea
           id="content"
-          placeholder="Win: Win + . | Mac: fn + click "
+          placeholder="Enter atleast 5 emojis..."
           className="h-[20rem] border-2 resize-none placeholder:text-secondary pl-2 pt-2 rounded-lg bg-transparent"
           value={contentText}
           onChange={handleChange}
@@ -71,12 +92,16 @@ const EmojiTextarea = () => {
             )}
           </button>
 
-          <DialogClose>
+          <DialogClose
+            disabled={checkDisabled}
+            className="disabled:cursor-not-allowed"
+          >
             <Button
+              disabled={checkDisabled}
               className="p-4 text-lg font-semi bold"
               onClick={() => {
                 setGetEmojis(false);
-                console.log("Hello world");
+                createPost();
               }}
             >
               Post
