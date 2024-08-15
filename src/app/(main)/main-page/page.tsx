@@ -4,6 +4,7 @@ import Filters from "./components/Filters";
 import Posts from "../components/Reusables/Posts";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase";
+import PostsFilter from "./components/PostsFilter";
 
 const getPosts = async (): Promise<any[]> => {
   const postsSnapshot = await getDocs(collection(db, "posts"));
@@ -22,7 +23,6 @@ const getPosts = async (): Promise<any[]> => {
 };
 const page = async () => {
   const posts = await getPosts();
-  console.log(posts);
   return (
     <section className="h-full w-full flex flex-col gap-6 animate-fade">
       <div className="border-2 rounded-3xl h-[14rem] p-7 flex flex-col">
@@ -31,14 +31,15 @@ const page = async () => {
       </div>
       <div className="border-2 rounded-3xl flex-1 p-7 overflow-scroll">
         <HeaderOfComponents title="Posts" />
-        {posts.map((post) => (
+        <PostsFilter posts={posts} />
+        {/* {posts.map((post) => (
           <Posts
             bio={post.bio}
             content={post.content}
             pfp={post.pfp}
             username={post.username}
           />
-        ))}
+        ))} */}
       </div>
     </section>
   );

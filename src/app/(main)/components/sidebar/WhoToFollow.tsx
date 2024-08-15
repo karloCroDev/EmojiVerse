@@ -42,6 +42,7 @@ const WhoToFollow = () => {
           .sort(() => 0.5 - Math.random())
           .map((item) => (
             <RecommendedFollowers
+              key={item.uid}
               followers={item.followers.length}
               username={item.username}
               bio={item.bio}
