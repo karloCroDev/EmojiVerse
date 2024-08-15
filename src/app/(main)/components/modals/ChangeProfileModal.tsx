@@ -55,7 +55,7 @@ const ChangeProfileModal = () => {
     changeUsername.length > 3 ||
     changePfp
   );
-  console.log(changePfp);
+
   const modifyPfp = async () => {
     if (changePfp) {
       const pfpRef = ref(storage, `pfp/${uid}`);

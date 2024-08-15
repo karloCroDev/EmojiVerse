@@ -3,6 +3,7 @@ import Link from "next/link";
 import Comments from "./Comments";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+
 interface PostsProps {
   username: string;
   pfp: string;

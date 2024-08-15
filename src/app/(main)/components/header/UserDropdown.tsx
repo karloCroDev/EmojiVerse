@@ -22,7 +22,7 @@ const UserDropdown = () => {
     pfp: state.pfp,
     initials: state.initials,
   }));
-  console.log(username);
+
   const { push } = useRouter();
   const signOutFn = () => {
     signOut(auth);

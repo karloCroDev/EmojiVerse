@@ -18,7 +18,6 @@ const RecommendedFollowers = ({
   followers,
   uid,
 }: RecommendedFollowersProps) => {
-  console.log(uid);
   return (
     <div className="flex items-center gap-x-4">
       <Avatar className="w-16 h-16">

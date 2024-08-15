@@ -59,7 +59,6 @@ const Authentication = ({
   );
 
   const onSubmitFn = (e: React.MouseEvent | React.FormEvent) => {
-    console.log(e);
     e.preventDefault();
     signUpFunc !== undefined &&
       signUpFunc(username, email, password, errorToast);

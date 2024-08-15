@@ -4,26 +4,22 @@ import HeaderOfComponents from "../Reusables/HeaderOfComponents";
 import RecommendedFollowers from "./RecommendedFollowers";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase";
-import { useLogicState } from "@/app/(main)/main-state/logic-state";
+
 import { useAuthState } from "@/app/globals/global-auth-store";
 
 const WhoToFollow = () => {
   const [display, setDsiplay] = useState<boolean>(false);
-
+  const [users, setUsers] = useState<any[]>([]);
   //If app grows, dont't map all users
   //Firebase
   const { uid } = useAuthState((state) => ({
     uid: state.uid,
   }));
 
-  const { users, setUsers } = useLogicState((state) => ({
-    users: state.users,
-    setUsers: state.setUsers,
-  }));
   useEffect(() => {
     const getUsers = async () => {
-      const users = await getDocs(collection(db, "users"));
-      const data = users.docs.map((doc) => ({
+      const usersSnapshot = await getDocs(collection(db, "users"));
+      const data = usersSnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
@@ -43,6 +39,7 @@ const WhoToFollow = () => {
       >
         {users
           .filter((item) => item.id !== uid)
+          .sort(() => 0.5 - Math.random())
           .map((item) => (
             <RecommendedFollowers
               followers={item.followers.length}
@@ -53,7 +50,7 @@ const WhoToFollow = () => {
             />
           ))}
       </div>
-      {!display ? (
+      {!display && users.length > 5 ? (
         <button
           className="font-semibold text-lg text-secondary cursor-pointer"
           onClick={() => setDsiplay(true)}
