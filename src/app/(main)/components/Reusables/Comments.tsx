@@ -1,16 +1,46 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaRegComments } from "react-icons/fa6";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoIosSend } from "react-icons/io";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { db } from "@/app/firebase/firebase";
+import { useAuthState } from "@/app/globals/global-auth-store";
 
-const Comments = () => {
+interface CommentProps {
+  docId: string;
+  authorId: string;
+  likes: string[];
+}
+
+const Comments = ({ likes, authorId, docId }: CommentProps) => {
   const [liked, setLiked] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [comment, setComment] = useState("");
 
+  const uid = useAuthState((state) => state.uid);
+  const sendComment = async () => {
+    // updateDoc(doc(db, ))
+  };
+
+  const followUser = async () => {
+    await updateDoc(doc(db, "users", authorId), {
+      followers: arrayUnion(uid),
+    });
+    //Make toast message
+  };
+
+  const markPost = async (actionLike: boolean) => {
+    actionLike
+      ? await updateDoc(doc(db, "posts", docId), {
+          likes: arrayUnion(uid),
+        })
+      : await updateDoc(doc(db, "posts", docId), {
+          likes: arrayRemove(uid),
+        });
+  };
   return (
     <>
       <div className="flex items-center justify-between">
@@ -21,12 +51,23 @@ const Comments = () => {
           {!showComments ? "Comments" : "Hide comments"}
           <FaRegComments />
         </button>
-        {!liked ? (
-          <button onClick={() => setLiked(true)}>
+        {!likes.includes(uid) && !liked ? (
+          <button
+            onClick={async () => {
+              setLiked(true);
+              await markPost(true);
+              //Make toast
+            }}
+          >
             <FaRegHeart className="size-6 text-secondary cursor-pointer" />
           </button>
         ) : (
-          <button onClick={() => setLiked(false)}>
+          <button
+            onClick={async () => {
+              setLiked(false);
+              await markPost(false);
+            }}
+          >
             <FaHeart className="size-6 cursor-pointer text-red-600" />
           </button>
         )}
@@ -67,6 +108,7 @@ const Comments = () => {
             <Button
               variant="ghost"
               className="bg-transparent p-1 rounded-lg z-10"
+              onClick={sendComment}
             >
               <IoIosSend className="size-8 cursor-pointer text-primary " />
             </Button>

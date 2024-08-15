@@ -72,7 +72,8 @@
   }
 }
 
-/* Sign in and sign up pages */
+/* F**, these were supposed to be custom components...*/
+
 .form-label {
   @apply flex flex-col gap-2 font-semibold  sm:text-lg xl:text-2xl;
 }

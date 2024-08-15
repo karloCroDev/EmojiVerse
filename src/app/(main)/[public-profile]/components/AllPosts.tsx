@@ -3,7 +3,7 @@ import HeaderOfComponents from "../../components/Reusables/HeaderOfComponents";
 import Posts from "../../components/Reusables/Posts";
 const AllPosts = () => {
   return (
-    <section>
+    <>
       <Posts
         bio="😑😑😑😑😑😑"
         content="🤪😑🤡😉😊👉⚙️👏🤞😎😎😀😑🤪😊😊⚙️😀🤞🤞👏⚙️"
@@ -34,7 +34,7 @@ const AllPosts = () => {
         pfp=""
         username="Ana Horvat"
       />
-    </section>
+    </>
   );
 };
 

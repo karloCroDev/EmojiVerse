@@ -9,19 +9,15 @@ const PostsFilter = ({ posts }: { posts: any[] }) => {
     filterInput: state.filterInput,
     filterSelect: state.filterSelect,
   }));
-  const randomSelection = 0.5 - Math.random();
+  const randomSelection = 1 - Math.random();
 
   const uid = useAuthState((state) => state.uid);
 
   return (
     <>
       {posts
-        .filter((post) =>
-          filterSelect === "following"
-            ? post.followers.includes(uid)
-              ? post
-              : null
-            : post
+        .filter(
+          (post) => filterSelect !== "following" || post.followers.includes(uid)
         )
         .filter(
           (post) =>
@@ -31,26 +27,27 @@ const PostsFilter = ({ posts }: { posts: any[] }) => {
         .sort((a, b) => {
           switch (filterSelect) {
             case "popular":
-              return b.followers.length - a.followers.length;
-            case "recommended":
-              return randomSelection;
             case "following":
               return b.followers.length - a.followers.length;
+            case "recommended":
+              randomSelection;
             default:
               return randomSelection;
           }
         })
-        .map((post) => {
-          return (
-            <Posts
-              key={post.authorUid}
-              bio={post.bio}
-              content={post.content}
-              pfp={post.pfp}
-              username={post.username}
-            />
-          );
-        })}
+        .map((post) => (
+          <Posts
+            key={post.id}
+            authorId={post.authorId}
+            bio={post.bio}
+            content={post.content}
+            pfp={post.pfp}
+            username={post.username}
+            docId={post.id}
+            followers={post.followers}
+            likes={post.likes}
+          />
+        ))}
     </>
   );
 };

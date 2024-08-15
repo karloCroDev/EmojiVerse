@@ -14,6 +14,7 @@ const getPosts = async (): Promise<any[]> => {
       const userSnapshot = await getDoc(doc(db, "users", docx.data().authorId));
       return {
         ...docx.data(),
+        id: docx.id,
         ...userSnapshot.data(),
       };
     })
@@ -32,14 +33,6 @@ const page = async () => {
       <div className="border-2 rounded-3xl flex-1 p-7 overflow-scroll">
         <HeaderOfComponents title="Posts" />
         <PostsFilter posts={posts} />
-        {/* {posts.map((post) => (
-          <Posts
-            bio={post.bio}
-            content={post.content}
-            pfp={post.pfp}
-            username={post.username}
-          />
-        ))} */}
       </div>
     </section>
   );
