@@ -1,37 +1,44 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaRegComments } from "react-icons/fa6";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoIosSend } from "react-icons/io";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
+import {
+  arrayRemove,
+  arrayUnion,
+  doc,
+  getDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "@/app/firebase/firebase";
 import { useAuthState } from "@/app/globals/global-auth-store";
 
 interface CommentProps {
   docId: string;
   likes: string[];
+  comments: any[];
 }
 
-const Comments = ({ likes, docId }: CommentProps) => {
+const Comments = ({ likes, docId, comments }: CommentProps) => {
   const uid = useAuthState((state) => state.uid);
   console.log(likes.includes(uid));
   const [liked, setLiked] = useState(false);
   //Uid is fetch a bit later than array, and if I put inside the useState it acctualy wont work
   useEffect(() => {
     setLiked(likes.includes(uid));
-  }, [uid]);
+  }, [uid, likes]);
 
   const [likeCount, setLikeCount] = useState(likes.length);
   const [showComments, setShowComments] = useState(false);
+  const [newComment, setNewComment] = useState("");
 
-  const [comment, setComment] = useState("");
   const sendComment = async () => {
     await updateDoc(doc(db, "posts", docId), {
-      comments: arrayUnion({ content: comment, authorCommentId: uid }),
+      comments: arrayUnion({ content: newComment, authorCommentId: uid }),
     });
-    setComment("");
+    setNewComment("");
     //toast message
   };
 
@@ -45,6 +52,32 @@ const Comments = ({ likes, docId }: CommentProps) => {
         });
   };
 
+  const [userDataGlobal, setUserDataGlobal] = useState<any>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const userDataArray = await Promise.all(
+        comments.map(async (comment) => {
+          const userSnapshot = await getDoc(
+            doc(db, "users", comment.authorCommentId)
+          );
+
+          if (userSnapshot.exists()) {
+            return { ...userSnapshot.data(), ...comment };
+          }
+          return null;
+        })
+      );
+
+      // Filter out null values in case any userSnapshot didn't exist
+      const validUserData = userDataArray;
+
+      setUserDataGlobal(validUserData);
+    };
+
+    fetchData();
+  }, []);
+  console.log(userDataGlobal);
   return (
     <>
       <div className="flex items-center justify-between">
@@ -87,43 +120,49 @@ const Comments = ({ likes, docId }: CommentProps) => {
       {/* Real comments */}
       {showComments ? (
         <>
-          <article className="flex flex-col items-start gap-y-4 relative max-h-60 overflow-scroll ">
-            <div className="w-full">
-              <div className="flex items-center justify-between w-full">
-                <div className="flex gap-x-2">
-                  <Avatar className="w-12 h-12">
-                    <AvatarImage src="" alt={`pfp`} />
-                    <AvatarFallback className="text-lg font-semibold">
-                      IH
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="h-full flex flex-col justify-center">
-                    <h2 className="text-xl font-semibold ">Ivan</h2>
-                    <p className="text-sm">🤪🤪🤪🤪🤪</p>
+          {userDataGlobal.map((userData: Record<string, string>) => (
+            <article className="flex flex-col items-start gap-y-4 relative max-h-60 overflow-scroll ">
+              <div className="w-full">
+                <div className="flex items-center justify-between w-full">
+                  <div className="flex gap-x-2">
+                    <Avatar className="w-12 h-12">
+                      <AvatarImage src={userData.pfp} alt={`pfp`} />
+                      <AvatarFallback className="text-lg font-semibold">
+                        {userData.username
+                          .split(" ")
+                          .map((l: string) => l[0].toUpperCase())}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="h-full flex flex-col justify-center">
+                      <h2 className="text-xl font-semibold ">
+                        {userData.username}
+                      </h2>
+                      <p className="text-sm">{userData.bio}</p>
+                    </div>
                   </div>
-                </div>
 
-                <p className="text-secondary">Followers: 0</p>
+                  <p className="text-secondary">
+                    Followers: {userData.followers.length}
+                  </p>
+                </div>
+                <p className="text-lg text-center w-full">{userData.content}</p>
               </div>
-              <p className="text-lg text-center w-full">
-                Hmmmm... does this mean impossible mission
-              </p>
-            </div>
-          </article>
+            </article>
+          ))}
 
           <div className="w-full border-2 h-16 rounded-md flex items-center justify-end pr-4 relative">
             <input
               type="text"
               placeholder="Try to guess what emojis mean..."
               className="w-full h-full bg-transparent rounded-md pl-4 text-lg placeholder:text-secondary absolute left-0 top-0"
-              onChange={(e) => setComment(e.target.value)}
-              value={comment}
+              onChange={(e) => setNewComment(e.target.value)}
+              value={newComment}
             />
             <Button
               variant="ghost"
               className="bg-transparent p-1 rounded-lg z-10"
               onClick={sendComment}
-              disabled={comment.length === 0}
+              disabled={newComment.length === 0}
             >
               <IoIosSend className="size-8 cursor-pointer text-primary " />
             </Button>

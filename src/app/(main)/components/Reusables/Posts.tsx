@@ -11,6 +11,7 @@ interface PostsProps {
   docId: string;
   followers: string[];
   likes: string[];
+  comments: Object[];
 }
 
 const Posts = ({
@@ -21,6 +22,7 @@ const Posts = ({
   docId,
   followers,
   likes,
+  comments,
 }: PostsProps) => {
   const initals = username.split(" ").map((x) => x[0].toUpperCase());
 
@@ -46,7 +48,7 @@ const Posts = ({
         </p>
       </div>
       <p className="flex-1 flex justify-center text-center">{content}</p>
-      <Comments likes={likes} docId={docId} />
+      <Comments likes={likes} docId={docId} comments={comments} />
     </div>
   );
 };
