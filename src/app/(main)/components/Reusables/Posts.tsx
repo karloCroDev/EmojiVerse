@@ -8,7 +8,6 @@ interface PostsProps {
   pfp: string;
   bio: string;
   content: string;
-  authorId: string;
   docId: string;
   followers: string[];
   likes: string[];
@@ -19,7 +18,6 @@ const Posts = ({
   pfp,
   bio,
   content,
-  authorId,
   docId,
   followers,
   likes,
@@ -48,7 +46,7 @@ const Posts = ({
         </p>
       </div>
       <p className="flex-1 flex justify-center text-center">{content}</p>
-      <Comments likes={likes} authorId={authorId} docId={docId} />
+      <Comments likes={likes} docId={docId} />
     </div>
   );
 };

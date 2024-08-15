@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaRegComments } from "react-icons/fa6";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoIosSend } from "react-icons/io";
@@ -11,25 +11,26 @@ import { useAuthState } from "@/app/globals/global-auth-store";
 
 interface CommentProps {
   docId: string;
-  authorId: string;
   likes: string[];
 }
 
-const Comments = ({ likes, authorId, docId }: CommentProps) => {
+const Comments = ({ likes, docId }: CommentProps) => {
   const [liked, setLiked] = useState(false);
   const [showComments, setShowComments] = useState(false);
-  const [comment, setComment] = useState("");
+
+  const comment = useRef<HTMLInputElement | null>(null);
 
   const uid = useAuthState((state) => state.uid);
-  const sendComment = async () => {
-    // updateDoc(doc(db, ))
-  };
 
-  const followUser = async () => {
-    await updateDoc(doc(db, "users", authorId), {
-      followers: arrayUnion(uid),
-    });
-    //Make toast message
+  const sendComment = async () => {
+    const element = comment.current as HTMLInputElement;
+    if (element) {
+      await updateDoc(doc(db, "posts", docId), {
+        comments: arrayUnion({ content: element.value, authorCommentId: uid }),
+      });
+      element.value = "";
+      //toast message
+    }
   };
 
   const markPost = async (actionLike: boolean) => {
@@ -41,6 +42,7 @@ const Comments = ({ likes, authorId, docId }: CommentProps) => {
           likes: arrayRemove(uid),
         });
   };
+
   return (
     <>
       <div className="flex items-center justify-between">
@@ -66,12 +68,15 @@ const Comments = ({ likes, authorId, docId }: CommentProps) => {
             onClick={async () => {
               setLiked(false);
               await markPost(false);
+              //Make toast
             }}
           >
             <FaHeart className="size-6 cursor-pointer text-red-600" />
           </button>
         )}
       </div>
+
+      {/* Real comments */}
       {showComments ? (
         <>
           <article className="flex flex-col items-start gap-y-4 relative max-h-60 overflow-scroll ">
@@ -90,7 +95,7 @@ const Comments = ({ likes, authorId, docId }: CommentProps) => {
                   </div>
                 </div>
 
-                <Button className="button-rounded-ml0 text-sm">Follow</Button>
+                <p className="text-secondary">Followers: 0</p>
               </div>
               <p className="text-lg text-center w-full">
                 Hmmmm... does this mean impossible mission
@@ -101,14 +106,15 @@ const Comments = ({ likes, authorId, docId }: CommentProps) => {
           <div className="w-full border-2 h-16 rounded-md flex items-center justify-end pr-4 relative">
             <input
               type="text"
-              placeholder="Your comment..."
+              placeholder="Try to guess what emojis mean..."
               className="w-full h-full bg-transparent rounded-md pl-4 text-lg placeholder:text-secondary absolute left-0 top-0"
-              onChange={(e) => setComment(e.target.value)}
+              ref={comment}
             />
             <Button
               variant="ghost"
               className="bg-transparent p-1 rounded-lg z-10"
               onClick={sendComment}
+              disabled={comment.current?.value.length === 0}
             >
               <IoIosSend className="size-8 cursor-pointer text-primary " />
             </Button>

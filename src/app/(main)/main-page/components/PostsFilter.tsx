@@ -38,7 +38,6 @@ const PostsFilter = ({ posts }: { posts: any[] }) => {
         .map((post) => (
           <Posts
             key={post.id}
-            authorId={post.authorId}
             bio={post.bio}
             content={post.content}
             pfp={post.pfp}
