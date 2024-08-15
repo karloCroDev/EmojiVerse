@@ -21,8 +21,9 @@ const PostsFilter = ({ posts }: { posts: any[] }) => {
         )
         .filter(
           (post) =>
-            post.username.includes(filterInput) ||
-            post.content.includes(filterInput)
+            post.authorId !== uid &&
+            (post.username.includes(filterInput) ||
+              post.content.includes(filterInput))
         )
         .sort((a, b) => {
           switch (filterSelect) {

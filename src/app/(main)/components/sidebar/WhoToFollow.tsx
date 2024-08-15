@@ -10,12 +10,12 @@ import { useAuthState } from "@/app/globals/global-auth-store";
 const WhoToFollow = () => {
   const [display, setDsiplay] = useState<boolean>(false);
   const [users, setUsers] = useState<any[]>([]);
+
   //If app grows, dont't map all users
   //Firebase
   const { uid } = useAuthState((state) => ({
     uid: state.uid,
   }));
-
   useEffect(() => {
     const getUsers = async () => {
       const usersSnapshot = await getDocs(collection(db, "users"));

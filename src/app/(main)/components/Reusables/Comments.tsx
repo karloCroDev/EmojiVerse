@@ -15,22 +15,24 @@ interface CommentProps {
 }
 
 const Comments = ({ likes, docId }: CommentProps) => {
+  const uid = useAuthState((state) => state.uid);
+  console.log(likes.includes(uid));
   const [liked, setLiked] = useState(false);
+  //Uid is fetch a bit later than array, and if I put inside the useState it acctualy wont work
+  useEffect(() => {
+    setLiked(likes.includes(uid));
+  }, [uid]);
+
+  const [likeCount, setLikeCount] = useState(likes.length);
   const [showComments, setShowComments] = useState(false);
 
-  const comment = useRef<HTMLInputElement | null>(null);
-
-  const uid = useAuthState((state) => state.uid);
-
+  const [comment, setComment] = useState("");
   const sendComment = async () => {
-    const element = comment.current as HTMLInputElement;
-    if (element) {
-      await updateDoc(doc(db, "posts", docId), {
-        comments: arrayUnion({ content: element.value, authorCommentId: uid }),
-      });
-      element.value = "";
-      //toast message
-    }
+    await updateDoc(doc(db, "posts", docId), {
+      comments: arrayUnion({ content: comment, authorCommentId: uid }),
+    });
+    setComment("");
+    //toast message
   };
 
   const markPost = async (actionLike: boolean) => {
@@ -53,27 +55,33 @@ const Comments = ({ likes, docId }: CommentProps) => {
           {!showComments ? "Comments" : "Hide comments"}
           <FaRegComments />
         </button>
-        {!likes.includes(uid) && !liked ? (
-          <button
-            onClick={async () => {
-              setLiked(true);
-              await markPost(true);
-              //Make toast
-            }}
-          >
-            <FaRegHeart className="size-6 text-secondary cursor-pointer" />
-          </button>
-        ) : (
-          <button
-            onClick={async () => {
-              setLiked(false);
-              await markPost(false);
-              //Make toast
-            }}
-          >
-            <FaHeart className="size-6 cursor-pointer text-red-600" />
-          </button>
-        )}
+        <div className="flex text-secondary items-center gap-2">
+          {liked ? (
+            <button
+              onClick={async () => {
+                await markPost(false);
+                setLiked(false);
+                setLikeCount((prev) => prev - 1);
+
+                //Make toast
+              }}
+            >
+              <FaHeart className="size-6 cursor-pointer text-red-600" />
+            </button>
+          ) : (
+            <button
+              onClick={async () => {
+                await markPost(true);
+                setLiked(true);
+                setLikeCount((prev) => prev + 1);
+                //Make toast!
+              }}
+            >
+              <FaRegHeart className="size-6  cursor-pointer" />
+            </button>
+          )}
+          <p className="text-xl">{likeCount}</p>
+        </div>
       </div>
 
       {/* Real comments */}
@@ -108,13 +116,14 @@ const Comments = ({ likes, docId }: CommentProps) => {
               type="text"
               placeholder="Try to guess what emojis mean..."
               className="w-full h-full bg-transparent rounded-md pl-4 text-lg placeholder:text-secondary absolute left-0 top-0"
-              ref={comment}
+              onChange={(e) => setComment(e.target.value)}
+              value={comment}
             />
             <Button
               variant="ghost"
               className="bg-transparent p-1 rounded-lg z-10"
               onClick={sendComment}
-              disabled={comment.current?.value.length === 0}
+              disabled={comment.length === 0}
             >
               <IoIosSend className="size-8 cursor-pointer text-primary " />
             </Button>
