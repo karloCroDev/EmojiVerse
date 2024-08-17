@@ -12,11 +12,6 @@ import {
 } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase";
 
-const fetchAllPostsFromUser = async (uid: string) => {
-  const q = query(collection(db, "posts"), where("authorId", "==", uid));
-  return await getDocs(q);
-};
-
 export interface userProps {
   bio: string;
   followers: string[];
@@ -25,6 +20,11 @@ export interface userProps {
   username: string;
   id: never;
 }
+const fetchAllPostsFromUser = async (uid: string) => {
+  const q = query(collection(db, "posts"), where("authorId", "==", uid));
+  return (await getDocs(q)).docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+};
+
 const getUser = async (uid: string) => {
   const userSnapshot = await getDoc(doc(db, "users", uid));
   return { ...userSnapshot.data(), id: userSnapshot.id } as userProps; // 😑ts
@@ -35,6 +35,8 @@ const page = async (id: any) => {
 
   const posts = await fetchAllPostsFromUser(uid);
   const user = await getUser(uid);
+
+  console.log(posts);
   return (
     <div className="w-full h-full border-2 rounded-3xl p-7 animate-fade flex flex-col gap-y-4 overflow-scroll">
       <UserInfo
@@ -45,7 +47,7 @@ const page = async (id: any) => {
         username={user?.username}
         id={user?.id}
       />
-      <AllPosts posts={posts} />
+      <AllPosts posts={posts} user={user} />
     </div>
   );
 };

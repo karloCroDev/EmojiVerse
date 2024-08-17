@@ -44,7 +44,10 @@ const UserInfo: React.FC<UserInfoProps> = ({
         </Avatar>
         <div>
           <h1 className="font-bold sm:text-5xl  text-3xl">{username}</h1>
-          <p className="font-semibold text-sm sm:text-xl mt-1">{bio}</p>
+          <p className="font-semibold text-sm lg:text-md mt-1">{bio}</p>
+          <p className="font-semibold text-md lg:text-lg mt-1 text-secondary">
+            Followers: {followers.length}
+          </p>
         </div>
         {!followUser ? (
           <Button
