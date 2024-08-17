@@ -15,7 +15,7 @@ const RecommendedFollowers = ({
   pfp,
   username,
   bio,
-  followers,
+
   uid,
 }: RecommendedFollowersProps) => {
   return (
@@ -27,7 +27,7 @@ const RecommendedFollowers = ({
         </AvatarFallback>
       </Avatar>
       <div>
-        <Link href={`/${username}`}>
+        <Link href={`/${uid}`}>
           <h2 className="text-xl font-semibold hover:underline cursor-pointer transition-[underline]">
             {username}
           </h2>

@@ -25,29 +25,35 @@ const PostsFilter = ({ posts }: { posts: any[] }) => {
             post.content.includes(filterInput)
         )
         .sort((a, b) => {
+          console.log(a.followers);
           switch (filterSelect) {
             case "popular":
+              return b.likes.length - a.likes.length;
             case "following":
               return b.followers.length - a.followers.length;
             case "recommended":
               randomSelection;
             default:
-              return randomSelection;
+              return 0;
           }
         })
-        .map((post) => (
-          <Posts
-            key={post.id}
-            bio={post.bio}
-            content={post.content}
-            pfp={post.pfp}
-            username={post.username}
-            docId={post.id}
-            followers={post.followers}
-            likes={post.likes}
-            comments={post.comments}
-          />
-        ))}
+        .map((post) => {
+          console.log(post.likes);
+          return (
+            <Posts
+              key={post.id}
+              bio={post.bio}
+              content={post.content}
+              pfp={post.pfp}
+              username={post.username}
+              docId={post.id}
+              followers={post.followers}
+              likes={post.likes}
+              comments={post.comments}
+              uid={post.authorId}
+            />
+          );
+        })}
     </>
   );
 };

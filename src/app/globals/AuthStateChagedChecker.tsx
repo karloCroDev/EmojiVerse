@@ -32,9 +32,8 @@ const AuthStateChagedChecker = ({
           setUsername(data.username);
           setPfp(data.pfp);
           setBio(data.bio);
-          setFollowers(data.followers.length);
+          setFollowers(data.followers);
         }
-        push("/main-page");
       }
     });
 

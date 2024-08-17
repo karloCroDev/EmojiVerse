@@ -26,7 +26,7 @@ const ProfileBar = () => {
         <h1 className="font-bold text-4xl">{username}</h1>
         <div className="flex flex-col">
           <p className="text-secondary">
-            Followers: {followers ?? "...add bio"}
+            Followers: {followers.length ?? "...add bio"}
           </p>
           <p className="text-secondary">Bio: {bio || "...add bio"}</p>
         </div>

@@ -11,8 +11,8 @@ interface AuthState {
   setPfp: (val: string) => void;
   bio: string;
   setBio: (val: string) => void;
-  followers: number;
-  setFollowers: (val: number) => void;
+  followers: string[];
+  setFollowers: (val: string[]) => void;
   user: any;
   setUser: (val: object) => void;
 }
@@ -37,7 +37,7 @@ export const useAuthState = create<AuthState>((set) => {
     setPfp: (val) => set({ pfp: val }),
     bio: "",
     setBio: (val) => set({ bio: val }),
-    followers: 0,
+    followers: [],
     setFollowers: (val) => set({ followers: val }),
     user: {},
     setUser: (val) => set({ user: val }),

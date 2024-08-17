@@ -100,8 +100,9 @@ const EmojiTextarea = () => {
               disabled={checkDisabled}
               className="p-4 text-lg font-semi bold"
               onClick={() => {
-                setGetEmojis(false);
                 createPost();
+                window.location.reload();
+                //Toast
               }}
             >
               Post

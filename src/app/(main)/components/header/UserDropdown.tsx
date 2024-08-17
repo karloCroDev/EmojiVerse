@@ -17,10 +17,11 @@ import { signOut } from "firebase/auth";
 import { useAuthState } from "@/app/globals/global-auth-store";
 
 const UserDropdown = () => {
-  const { username, pfp, initials } = useAuthState((state) => ({
+  const { username, pfp, initials, uid } = useAuthState((state) => ({
     username: state.username,
     pfp: state.pfp,
     initials: state.initials,
+    uid: state.uid,
   }));
 
   const { push } = useRouter();
@@ -59,7 +60,7 @@ const UserDropdown = () => {
           </Dialog>
         </DropdownMenuItem>
         {/*  */}
-        <DropdownMenuItem onClick={() => push(`${username}`)}>
+        <DropdownMenuItem onClick={() => push(`${uid}`)}>
           Public profile
         </DropdownMenuItem>
         {/*  */}

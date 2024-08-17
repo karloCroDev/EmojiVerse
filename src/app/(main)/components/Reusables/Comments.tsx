@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaRegComments } from "react-icons/fa6";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoIosSend } from "react-icons/io";
@@ -31,6 +31,15 @@ const Comments = ({ likes, docId, comments }: CommentProps) => {
 
   //Liking the post
   const [liked, setLiked] = useState(false);
+  const markPost = async (actionLike: boolean) => {
+    actionLike
+      ? await updateDoc(doc(db, "posts", docId), {
+          likes: arrayUnion(uid),
+        })
+      : await updateDoc(doc(db, "posts", docId), {
+          likes: arrayRemove(uid),
+        });
+  };
   //Uid is fetch a bit later than array, and if I put inside the useState it acctualy wont work
   useEffect(() => {
     setLiked(likes.includes(uid));
@@ -38,7 +47,9 @@ const Comments = ({ likes, docId, comments }: CommentProps) => {
 
   const [likeCount, setLikeCount] = useState(likes.length);
   const [showComments, setShowComments] = useState(false);
+
   const [newComment, setNewComment] = useState("");
+  const commentBtnRef = useRef<HTMLButtonElement | null>(null);
 
   const [userDataGlobal, setUserDataGlobal] = useState<any>([]);
   const sendComment = async () => {
@@ -57,18 +68,6 @@ const Comments = ({ likes, docId, comments }: CommentProps) => {
     setNewComment("");
 
     //toast message
-  };
-
-  console.log(userDataGlobal);
-
-  const markPost = async (actionLike: boolean) => {
-    actionLike
-      ? await updateDoc(doc(db, "posts", docId), {
-          likes: arrayUnion(uid),
-        })
-      : await updateDoc(doc(db, "posts", docId), {
-          likes: arrayRemove(uid),
-        });
   };
 
   //Dont fetch instead utilize already fetched user
@@ -173,6 +172,9 @@ const Comments = ({ likes, docId, comments }: CommentProps) => {
               placeholder="Try to guess what emojis mean..."
               className="w-full h-full bg-transparent rounded-md pl-4 text-lg placeholder:text-secondary absolute left-0 top-0"
               onChange={(e) => setNewComment(e.target.value)}
+              onKeyDown={(e) =>
+                e.key === "Enter" ? commentBtnRef.current?.click() : null
+              }
               value={newComment}
             />
             <Button
@@ -180,6 +182,7 @@ const Comments = ({ likes, docId, comments }: CommentProps) => {
               className="bg-transparent p-1 rounded-lg z-10"
               onClick={sendComment}
               disabled={newComment.length === 0}
+              ref={commentBtnRef}
             >
               <IoIosSend className="size-8 cursor-pointer text-primary " />
             </Button>

@@ -27,11 +27,11 @@ const page = async () => {
   return (
     <section className="h-full w-full flex flex-col gap-6 animate-fade">
       <div className="border-2 rounded-3xl h-[14rem] p-7 flex flex-col">
-        <HeaderOfComponents title="Filters" />
+        <HeaderOfComponents>Filters</HeaderOfComponents>
         <Filters />
       </div>
       <div className="border-2 rounded-3xl flex-1 p-7 overflow-scroll">
-        <HeaderOfComponents title="Posts" />
+        <HeaderOfComponents>Posts</HeaderOfComponents>
         <PostsFilter posts={posts} />
       </div>
     </section>

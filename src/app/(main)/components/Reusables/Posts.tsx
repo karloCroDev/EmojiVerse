@@ -12,6 +12,7 @@ interface PostsProps {
   followers: string[];
   likes: string[];
   comments: Object[];
+  uid: string;
 }
 
 const Posts = ({
@@ -23,6 +24,7 @@ const Posts = ({
   followers,
   likes,
   comments,
+  uid,
 }: PostsProps) => {
   const initals = username.split(" ").map((x) => x[0].toUpperCase());
 
@@ -36,7 +38,7 @@ const Posts = ({
           </AvatarFallback>
         </Avatar>
         <div className="h-full flex flex-col justify-center">
-          <Link href={`/${username}`}>
+          <Link href={`/${uid}`}>
             <h2 className="text-2xl font-semibold hover:underline cursor-pointer transition-[underline] ">
               {username}
             </h2>

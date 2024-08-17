@@ -141,7 +141,7 @@ const ChangeProfileModal = () => {
             <button
               className="text-secondary"
               onClick={
-                () => push(`/${username}`)
+                () => push(`/${uid}`)
                 //I had to do it like this because modal won't close on imported Link component from next.js
               }
             >

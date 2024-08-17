@@ -31,7 +31,7 @@ const WhoToFollow = () => {
 
   return (
     <aside className="border-2 rounded-3xl p-8  flex-col items-start gap-y-6 animate-fade hidden sm:flex">
-      <HeaderOfComponents title="Who to follow" />
+      <HeaderOfComponents>Who to follow</HeaderOfComponents>
       <div
         className={`flex flex-col gap-y-4 flex-1 ${
           display ? "overflow-scroll" : "overflow-hidden"
@@ -47,7 +47,7 @@ const WhoToFollow = () => {
               username={item.username}
               bio={item.bio}
               pfp={item.pfp}
-              uid={item.uid}
+              uid={item.id}
             />
           ))}
       </div>
