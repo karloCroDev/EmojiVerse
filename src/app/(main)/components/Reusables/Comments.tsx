@@ -22,8 +22,14 @@ interface CommentProps {
 }
 
 const Comments = ({ likes, docId, comments }: CommentProps) => {
-  const uid = useAuthState((state) => state.uid);
-  console.log(likes.includes(uid));
+  const { uid, username, pfp, followers } = useAuthState((state) => ({
+    uid: state.uid,
+    username: state.username,
+    pfp: state.pfp,
+    followers: state.followers,
+  }));
+
+  //Liking the post
   const [liked, setLiked] = useState(false);
   //Uid is fetch a bit later than array, and if I put inside the useState it acctualy wont work
   useEffect(() => {
@@ -34,13 +40,26 @@ const Comments = ({ likes, docId, comments }: CommentProps) => {
   const [showComments, setShowComments] = useState(false);
   const [newComment, setNewComment] = useState("");
 
+  const [userDataGlobal, setUserDataGlobal] = useState<any>([]);
   const sendComment = async () => {
     await updateDoc(doc(db, "posts", docId), {
       comments: arrayUnion({ content: newComment, authorCommentId: uid }),
     });
+    setUserDataGlobal([
+      ...userDataGlobal,
+      {
+        content: newComment,
+        username: username,
+        followers: followers,
+        pfp: pfp,
+      },
+    ]);
     setNewComment("");
+
     //toast message
   };
+
+  console.log(userDataGlobal);
 
   const markPost = async (actionLike: boolean) => {
     actionLike
@@ -52,8 +71,7 @@ const Comments = ({ likes, docId, comments }: CommentProps) => {
         });
   };
 
-  const [userDataGlobal, setUserDataGlobal] = useState<any>([]);
-
+  //Dont fetch instead utilize already fetched user
   useEffect(() => {
     const fetchData = async () => {
       const userDataArray = await Promise.all(
@@ -70,9 +88,8 @@ const Comments = ({ likes, docId, comments }: CommentProps) => {
       );
 
       // Filter out null values in case any userSnapshot didn't exist
-      const validUserData = userDataArray;
 
-      setUserDataGlobal(validUserData);
+      setUserDataGlobal(userDataArray);
     };
 
     fetchData();

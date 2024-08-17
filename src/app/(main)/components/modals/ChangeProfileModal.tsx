@@ -21,27 +21,13 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const ChangeProfileModal = () => {
   const { push } = useRouter();
-  const {
-    username,
-    initials,
-    uid,
-    bio,
-    pfp,
-    user,
-    setUsername,
-    setBio,
-    setPfp,
-  } = useAuthState((state) => ({
+  const { username, initials, uid, bio, pfp, user } = useAuthState((state) => ({
     username: state.username,
     initials: state.initials,
     uid: state.uid,
     bio: state.bio,
     pfp: state.pfp,
     user: state.user,
-
-    setUsername: state.setUsername,
-    setPfp: state.setPfp,
-    setBio: state.setBio,
   }));
 
   const [changeUsername, setChangeUsername] = useState("");
@@ -61,9 +47,6 @@ const ChangeProfileModal = () => {
       const pfpRef = ref(storage, `pfp/${uid}`);
       await uploadBytes(pfpRef, changePfp);
       const image = await getDownloadURL(pfpRef);
-      setPfp(image);
-      setChangePfp("");
-      console.log(pfp);
     }
   };
 
@@ -71,9 +54,6 @@ const ChangeProfileModal = () => {
     const usernameChecker =
       changeUsername.length > 2 ? changeUsername : username;
     const bioChecker = changeBio.length > 5 ? changeBio : bio;
-
-    setUsername(usernameChecker);
-    setBio(bioChecker);
 
     await updateDoc(doc(db, "users", uid), {
       username: usernameChecker,
@@ -179,6 +159,8 @@ const ChangeProfileModal = () => {
                 await modifyPfp();
                 await modifyPassword();
                 await modifyProfile();
+                window.location.reload();
+                //new toast
               }}
             >
               Save changes
