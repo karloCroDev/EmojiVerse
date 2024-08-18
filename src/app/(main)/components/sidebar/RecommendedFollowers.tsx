@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-
+import { useMediaQuery } from "react-responsive";
 interface RecommendedFollowersProps {
   pfp: string;
   username: string;
@@ -15,11 +15,10 @@ const RecommendedFollowers = ({
   pfp,
   username,
   bio,
-
   uid,
 }: RecommendedFollowersProps) => {
   return (
-    <div className="flex items-center gap-x-4">
+    <aside className="flex items-center gap-x-4">
       <Avatar className="w-16 h-16">
         <AvatarImage alt="Profile picture" src={pfp} />
         <AvatarFallback className="text-xl">
@@ -36,7 +35,7 @@ const RecommendedFollowers = ({
       </div>
 
       <Button className="button-rounded">Follow</Button>
-    </div>
+    </aside>
   );
 };
 

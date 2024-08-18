@@ -1,14 +1,13 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import HeaderOfComponents from "../Reusables/HeaderOfComponents";
 import RecommendedFollowers from "./RecommendedFollowers";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase";
-
+import { useMediaQuery } from "react-responsive";
 import { useAuthState } from "@/app/globals/global-auth-store";
 
 const WhoToFollow = () => {
-  const [display, setDsiplay] = useState<boolean>(false);
   const [users, setUsers] = useState<any[]>([]);
 
   //If app grows, dont't map all users
@@ -30,12 +29,11 @@ const WhoToFollow = () => {
   }, []);
 
   return (
-    <aside className="border-2 rounded-3xl p-8  flex-col items-start gap-y-6 animate-fade hidden sm:flex">
+    <div className="border-2 rounded-3xl p-8  flex-col items-start gap-y-6 animate-fade flex h-full md:mt-4 2xl:mt-8">
       <HeaderOfComponents>Who to follow</HeaderOfComponents>
       <div
-        className={`flex flex-col gap-y-4 flex-1 ${
-          display ? "overflow-scroll" : "overflow-hidden"
-        } w-full`}
+        className={`flex flex-col gap-y-4 flex-1 overflow-scroll 
+         w-full`}
       >
         {users
           .filter((item) => item.id !== uid)
@@ -51,15 +49,7 @@ const WhoToFollow = () => {
             />
           ))}
       </div>
-      {!display && users.length > 5 ? (
-        <button
-          className="font-semibold text-lg text-secondary cursor-pointer"
-          onClick={() => setDsiplay(true)}
-        >
-          Show more
-        </button>
-      ) : null}
-    </aside>
+    </div>
   );
 };
 

@@ -17,13 +17,17 @@ const ProfileBar = () => {
   }));
 
   return (
-    <aside className="border-2 rounded-3xl overflow-hidden animate-fade hidden sm:block ">
-      <div className="h-[75%] border-b-2 flex flex-col justify-center items-center gap-y-6 ">
-        <Avatar className="w-[10rem] h-[10rem]">
-          <AvatarImage src={pfp} alt="Profile picture" />
-          <AvatarFallback className="text-4xl">{initials}</AvatarFallback>
-        </Avatar>
-        <h1 className="font-bold text-4xl">{username}</h1>
+    <aside className="border-2 rounded-3xl overflow-hidden animate-fade hidden sm:block h-full">
+      <div className="2xl:h-[75%] h-full  2xl:border-b-2 flex flex-col justify-center items-center 2xl:gap-y-6 gap-y-2 ">
+        <div>
+          <Avatar className="w-40 h-40 ">
+            <AvatarImage src={pfp} alt="Profile picture" />
+            <AvatarFallback className="2xl:text-4xl md:text-2xl ">
+              {initials}
+            </AvatarFallback>
+          </Avatar>
+        </div>
+        <h1 className="font-bold text-4xl mt-4">{username}</h1>
         <div className="flex flex-col">
           <p className="text-secondary">
             Followers: {followers.length ?? "...add bio"}
@@ -31,7 +35,7 @@ const ProfileBar = () => {
           <p className="text-secondary">Bio: {bio || "...add bio"}</p>
         </div>
       </div>
-      <div className="flex h-[25%]">
+      <div className="2xl:h-[25%] hidden 2xl:flex">
         <Dialog>
           <DialogTrigger className="flex-1 border-r-2 h-full hover:bg-secondary transition-colors flex justify-center items-center flex-col">
             <IoAddOutline className="size-20" />
