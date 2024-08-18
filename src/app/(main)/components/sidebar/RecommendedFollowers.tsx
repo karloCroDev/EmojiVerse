@@ -35,6 +35,9 @@ const RecommendedFollowers = ({
       </div>
 
       <Button className="button-rounded">Follow</Button>
+      {/* <Button variant="outline" className="rounded-full">
+        Unfollow
+      </Button> */}
     </aside>
   );
 };

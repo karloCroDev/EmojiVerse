@@ -34,7 +34,7 @@ const PostsFilter = ({ posts }: { posts: any[] }) => {
             case "recommended":
               randomSelection;
             default:
-              return 0;
+              return randomSelection;
           }
         })
         .map((post) => {

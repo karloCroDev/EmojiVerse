@@ -3,14 +3,14 @@ import React from "react";
 import SignUpImage from "../../assets/sign-up-img.jpg";
 import Authentication from "../components/Authentication";
 import { auth, db } from "@/app/firebase/firebase";
-
+import { useRouter } from "next/navigation";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
 import { useLoadingState } from "../loading-store";
 
 const page = () => {
   const setAuthProcess = useLoadingState((state) => state.setAuthProcess);
-
+  const { push } = useRouter();
   const signUpFunc = async (
     username: string,
     email: string,
@@ -31,6 +31,7 @@ const page = () => {
         followers: [],
         messgaes: [],
       });
+      push("/main-page");
     } catch (error) {
       console.error(error);
       errorToastFunc();

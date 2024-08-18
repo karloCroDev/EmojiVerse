@@ -47,7 +47,7 @@ const UserDropdown = () => {
         </DropdownMenuItem>
         {/*  */}
         <DropdownMenuItem
-          className="sm:hidden"
+          className="2xl:hidden"
           onSelect={(e) => e.preventDefault()}
         >
           <Dialog>

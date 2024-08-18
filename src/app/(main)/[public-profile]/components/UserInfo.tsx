@@ -64,7 +64,7 @@ const UserInfo: React.FC<UserInfoProps> = ({
             className="rounded-full text-2xl font-semibold p-6 ml-auto"
             onClick={async () => await followUserFn(false)}
           >
-            Following
+            Unfollow
           </Button>
         )}
       </div>

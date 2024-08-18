@@ -30,7 +30,7 @@ const Comments = ({ likes, docId, comments }: CommentProps) => {
   }));
 
   //Liking the post
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState(likes.includes(uid));
   const markPost = async (actionLike: boolean) => {
     actionLike
       ? await updateDoc(doc(db, "posts", docId), {
@@ -43,7 +43,7 @@ const Comments = ({ likes, docId, comments }: CommentProps) => {
   //Uid is fetch a bit later than array, and if I put inside the useState it acctualy wont work
   useEffect(() => {
     setLiked(likes.includes(uid));
-  }, [uid, likes]);
+  }, [uid]);
 
   const [likeCount, setLikeCount] = useState(likes.length);
   const [showComments, setShowComments] = useState(false);

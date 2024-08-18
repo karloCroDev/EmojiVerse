@@ -17,14 +17,12 @@ const ProfileBar = () => {
   }));
 
   return (
-    <aside className="border-2 rounded-3xl overflow-hidden animate-fade hidden sm:block h-full">
+    <aside className="border-2 rounded-3xl overflow-hidden animate-fade hidden lg:block h-full ">
       <div className="2xl:h-[75%] h-full  2xl:border-b-2 flex flex-col justify-center items-center 2xl:gap-y-6 gap-y-2 ">
         <div>
           <Avatar className="w-40 h-40 ">
             <AvatarImage src={pfp} alt="Profile picture" />
-            <AvatarFallback className="2xl:text-4xl md:text-2xl ">
-              {initials}
-            </AvatarFallback>
+            <AvatarFallback className="text-4xl">{initials}</AvatarFallback>
           </Avatar>
         </div>
         <h1 className="font-bold text-4xl mt-4">{username}</h1>

@@ -2,13 +2,14 @@
 import React from "react";
 import SignInImage from "../../assets/sign-in-img.jpg";
 import Authentication from "../components/Authentication";
+import { useRouter } from "next/navigation";
 import { useLoadingState } from "../loading-store";
 import { auth } from "@/app/firebase/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 const page = () => {
   const setAuthProcess = useLoadingState((state) => state.setAuthProcess);
-
+  const { push } = useRouter();
   const signInFunc = async (
     email: string,
     password: string,
@@ -17,6 +18,7 @@ const page = () => {
     try {
       setAuthProcess(true);
       await signInWithEmailAndPassword(auth, email, password);
+      push("/main-page");
     } catch (error) {
       console.error(error);
       errorToast();

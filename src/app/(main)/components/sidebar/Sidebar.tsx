@@ -1,30 +1,26 @@
-"use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ProfileBar from "./ProfileBar";
 import WhoToFollow from "./WhoToFollow";
-import { useMediaQuery } from "react-responsive";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "@/app/firebase/firebase";
 
-const Sidebar = () => {
-  //Both components are client so no
-  const [isMounted, setIsMounted] = useState(false);
-  const isBigScreen = useMediaQuery({ query: "(min-width: 1024px)" });
+const getUsers = async () => {
+  const usersSnapshot = await getDocs(collection(db, "users"));
+  const data = usersSnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+  return data;
+};
 
-  //I will get error if I don't do this
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) {
-    return null;
-  }
-
-  if (isBigScreen)
-    return (
-      <>
-        <ProfileBar />
-        <WhoToFollow />
-      </>
-    );
+const Sidebar = async () => {
+  const users: any[] = await getUsers();
+  return (
+    <>
+      <ProfileBar />
+      <WhoToFollow users={users} />
+    </>
+  );
 };
 
 export default Sidebar;
