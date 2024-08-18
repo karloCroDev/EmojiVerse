@@ -17,11 +17,10 @@ import { signOut } from "firebase/auth";
 import { useAuthState } from "@/app/globals/global-auth-store";
 
 const UserDropdown = () => {
-  const { username, pfp, initials, uid } = useAuthState((state) => ({
+  const { username, pfp, initials } = useAuthState((state) => ({
     username: state.username,
     pfp: state.pfp,
     initials: state.initials,
-    uid: state.uid,
   }));
 
   const { push } = useRouter();
@@ -40,10 +39,7 @@ const UserDropdown = () => {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="mr-6 sm:mr-0 w-48">
-        <DropdownMenuItem
-          className="sm:hidden"
-          onSelect={(e) => e.preventDefault()}
-        >
+        <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
           <Dialog>
             <DialogTrigger>Create post</DialogTrigger>
             <CreatePostModal />
@@ -59,11 +55,6 @@ const UserDropdown = () => {
             <ChangeProfileModal />
           </Dialog>
         </DropdownMenuItem>
-        {/*  */}
-        <DropdownMenuItem onClick={() => push(`${uid}`)}>
-          Public profile
-        </DropdownMenuItem>
-        {/*  */}
         <DropdownMenuItem
           className="bg-red-600 flex justify-between text-white"
           onClick={signOutFn}

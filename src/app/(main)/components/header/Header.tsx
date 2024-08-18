@@ -1,15 +1,14 @@
 import React from "react";
-import Image from "next/image";
 import Logo from "@/app/globals/Logo";
-import Link from "next/link";
 import ModeToggle from "./ModeToggle";
 import UserDropdown from "./UserDropdown";
-import { IoMdNotifications } from "react-icons/io";
+import UserIcon from "./UserIcon";
 import { Button } from "@/components/ui/button";
+
 const Header = () => {
   return (
     <nav>
-      <ul className="fixed sm:static h-[8rem] w-full flex items-center px-4 sm:px-24 gap-x-4 animate-fade bg-background sm:border-0 border-b border-b-border z-10 ">
+      <ul className=" h-32 w-full flex items-center px-4 sm:px-24 gap-x-4 animate-fade bg-background sm:border-0 border-b border-b-border z-10 ">
         <li>
           <Logo link="/main-page" />
         </li>
@@ -18,7 +17,7 @@ const Header = () => {
         </li>
         <li>
           <Button className="py-8" variant="outline">
-            <IoMdNotifications className=" size-8  sm:size-10" />
+            <UserIcon />
           </Button>
         </li>
         <li>
