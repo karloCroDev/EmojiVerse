@@ -27,7 +27,7 @@ const WhoToFollow = ({ users }: { users: UserProps[] }) => {
   if (isClient)
     return (
       <div className="border-2 rounded-3xl p-8  flex-col items-start gap-y-6 animate-fade  h-full md:mt-4 2xl:mt-8 hidden lg:flex">
-        <HeaderOfComponents>Who to follow</HeaderOfComponents>
+        <HeaderOfComponents>Recommended users</HeaderOfComponents>
         <div
           className={`flex flex-col gap-y-4 flex-1 overflow-scroll 
          w-full`}
@@ -38,11 +38,11 @@ const WhoToFollow = ({ users }: { users: UserProps[] }) => {
             .map((item) => (
               <RecommendedFollowers
                 key={item.id}
-                followers={item.followers.length}
+                followers={item.followers}
                 username={item.username}
                 bio={item.bio}
                 pfp={item.pfp}
-                uid={item.id}
+                id={item.id}
               />
             ))}
         </div>

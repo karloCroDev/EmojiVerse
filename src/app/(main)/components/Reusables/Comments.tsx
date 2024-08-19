@@ -148,7 +148,7 @@ const Comments = ({ likes, docId, comments }: CommentProps) => {
                         {userData.initials}
                       </AvatarFallback>
                     </Avatar>
-                    <div className=" flex flex-col justify-center items-center">
+                    <div className="flex flex-col justify-center items-center">
                       <Link href={userData.authorCommentId}>
                         <h2 className="text-xl font-semibold hover:underline cursor-pointer transition-[underline]">
                           {userData.username}
