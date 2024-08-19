@@ -26,6 +26,7 @@ const page = () => {
       );
       await setDoc(doc(db, "users", userCredential.user.uid!), {
         username: username,
+        initials: username.split(" ").map((l) => l[0].toUpperCase()),
         pfp: "",
         bio: "",
         followers: [],

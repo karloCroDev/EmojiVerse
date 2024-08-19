@@ -11,6 +11,7 @@ const AllPosts = async ({ posts, user }: { posts: any; user: any }) => {
           content={post.content}
           pfp={user.pfp}
           username={user.username}
+          initials={user.initials}
           docId={post.id}
           followers={user.followers}
           likes={post.likes}

@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface PostsProps {
   username: string;
+  initials: string;
   pfp: string;
   bio: string;
   content: string;
@@ -17,6 +18,7 @@ interface PostsProps {
 
 const Posts = ({
   username,
+  initials,
   pfp,
   bio,
   content,
@@ -26,15 +28,14 @@ const Posts = ({
   comments,
   uid,
 }: PostsProps) => {
-  const initals = username.split(" ").map((x) => x[0].toUpperCase());
-
+  console.log(initials);
   return (
     <div className="border-b rounded-none sm:rounded-xl sm:border-2  mt-2 sm:mt-5 py-4 sm:p-8 flex flex-col gap-y-8 h-max-[50rem]">
       <div className="flex items-center gap-x-4">
         <Avatar className="sm:w-16 sm:h-16 h-12 w-12 ">
           <AvatarImage src={pfp} alt={`${username} pfp`} />
           <AvatarFallback className="sm:text-2xl text-md font-semibold">
-            {initals}
+            {initials}
           </AvatarFallback>
         </Avatar>
         <div className="h-full flex flex-col justify-center">

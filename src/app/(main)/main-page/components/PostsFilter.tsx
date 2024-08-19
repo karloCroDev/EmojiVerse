@@ -46,6 +46,7 @@ const PostsFilter = ({ posts }: { posts: any[] }) => {
               content={post.content}
               pfp={post.pfp}
               username={post.username}
+              initials={post.initials}
               docId={post.id}
               followers={post.followers}
               likes={post.likes}

@@ -18,29 +18,36 @@ const WhoToFollow = ({ users }: { users: UserProps[] }) => {
     uid: state.uid,
   }));
 
-  return (
-    <div className="border-2 rounded-3xl p-8  flex-col items-start gap-y-6 animate-fade  h-full md:mt-4 2xl:mt-8 hidden lg:flex">
-      <HeaderOfComponents>Who to follow</HeaderOfComponents>
-      <div
-        className={`flex flex-col gap-y-4 flex-1 overflow-scroll 
+  //Preventing hydration error like this because of filtering the items (I have to use it because of useState() hook)
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (isClient)
+    return (
+      <div className="border-2 rounded-3xl p-8  flex-col items-start gap-y-6 animate-fade  h-full md:mt-4 2xl:mt-8 hidden lg:flex">
+        <HeaderOfComponents>Who to follow</HeaderOfComponents>
+        <div
+          className={`flex flex-col gap-y-4 flex-1 overflow-scroll 
          w-full`}
-      >
-        {users
-          .filter((item) => item.id !== uid)
-          .sort(() => 0.5 - Math.random())
-          .map((item) => (
-            <RecommendedFollowers
-              key={item.id}
-              followers={item.followers.length}
-              username={item.username}
-              bio={item.bio}
-              pfp={item.pfp}
-              uid={item.id}
-            />
-          ))}
+        >
+          {users
+            .filter((item) => item.id !== uid)
+            .sort(() => 0.5 - Math.random())
+            .map((item) => (
+              <RecommendedFollowers
+                key={item.id}
+                followers={item.followers.length}
+                username={item.username}
+                bio={item.bio}
+                pfp={item.pfp}
+                uid={item.id}
+              />
+            ))}
+        </div>
       </div>
-    </div>
-  );
+    );
 };
 
 export default WhoToFollow;

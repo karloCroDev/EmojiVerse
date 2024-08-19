@@ -14,6 +14,7 @@ import {
 } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase";
 import { useAuthState } from "@/app/globals/global-auth-store";
+import Link from "next/link";
 
 interface CommentProps {
   docId: string;
@@ -144,15 +145,15 @@ const Comments = ({ likes, docId, comments }: CommentProps) => {
                     <Avatar className="w-12 h-12">
                       <AvatarImage src={userData.pfp} alt={`pfp`} />
                       <AvatarFallback className="text-lg font-semibold">
-                        {userData.username
-                          .split(" ")
-                          .map((l: string) => l[0].toUpperCase())}
+                        {userData.initials}
                       </AvatarFallback>
                     </Avatar>
-                    <div className="h-full flex flex-col justify-center">
-                      <h2 className="text-xl font-semibold ">
-                        {userData.username}
-                      </h2>
+                    <div className=" flex flex-col justify-center items-center">
+                      <Link href={userData.authorCommentId}>
+                        <h2 className="text-xl font-semibold hover:underline cursor-pointer transition-[underline]">
+                          {userData.username}
+                        </h2>
+                      </Link>
                       <p className="text-sm">{userData.bio}</p>
                     </div>
                   </div>

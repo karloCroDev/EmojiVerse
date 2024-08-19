@@ -7,12 +7,13 @@ interface AuthState {
   username: string;
   setUsername: (val: any) => void;
   initials: string;
+  setInitials: (val: any) => void;
   pfp: string;
   setPfp: (val: string) => void;
   bio: string;
   setBio: (val: string) => void;
   followers: string[];
-  setFollowers: (val: string[]) => void;
+  setFollowers: (val: string[]) => any;
   user: any;
   setUser: (val: object) => void;
 }
@@ -25,14 +26,9 @@ export const useAuthState = create<AuthState>((set) => {
     setUsername: (val) =>
       set({
         username: val,
-        initials:
-          val !== "" &&
-          val
-            .split(" ")
-            .map((l: string) => l[0].toUpperCase())
-            .join(""),
       }),
     initials: "",
+    setInitials: (val) => set({ initials: val }),
     pfp: "",
     setPfp: (val) => set({ pfp: val }),
     bio: "",

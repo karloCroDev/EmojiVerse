@@ -12,15 +12,23 @@ const AuthStateChagedChecker = ({
   children: React.ReactNode;
 }) => {
   const { push } = useRouter();
-  const { setUid, setPfp, setUsername, setBio, setFollowers, setUser } =
-    useAuthState((state) => ({
-      setUid: state.setUid,
-      setPfp: state.setPfp,
-      setUsername: state.setUsername,
-      setBio: state.setBio,
-      setFollowers: state.setFollowers,
-      setUser: state.setUser,
-    }));
+  const {
+    setUid,
+    setPfp,
+    setUsername,
+    setBio,
+    setFollowers,
+    setUser,
+    setInitials,
+  } = useAuthState((state) => ({
+    setUid: state.setUid,
+    setPfp: state.setPfp,
+    setUsername: state.setUsername,
+    setBio: state.setBio,
+    setFollowers: state.setFollowers,
+    setUser: state.setUser,
+    setInitials: state.setInitials,
+  }));
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -32,6 +40,7 @@ const AuthStateChagedChecker = ({
           setUsername(data.username);
           setPfp(data.pfp);
           setBio(data.bio);
+          setInitials(data.initials);
           setFollowers(data.followers);
         }
       }

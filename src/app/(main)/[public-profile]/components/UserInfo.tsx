@@ -17,6 +17,7 @@ const UserInfo: React.FC<UserInfoProps> = ({
   const uid = useAuthState((state) => state.uid);
 
   const [followUser, setFollowUser] = useState(false);
+  const [count, setCount] = useState(0);
   console.log(id);
   useEffect(() => {
     setFollowUser(followers.includes(uid));
@@ -31,6 +32,7 @@ const UserInfo: React.FC<UserInfoProps> = ({
           followers: arrayRemove(uid),
         });
     setFollowUser(actionFollow);
+    setCount((prev) => (actionFollow ? prev + 1 : prev - 1));
   };
 
   return (
@@ -46,7 +48,7 @@ const UserInfo: React.FC<UserInfoProps> = ({
           <h1 className="font-bold sm:text-5xl  text-3xl">{username}</h1>
           <p className="font-semibold text-sm lg:text-md mt-1">{bio}</p>
           <p className="font-semibold text-md lg:text-lg mt-1 text-secondary">
-            Followers: {followers.length}
+            Followers: {followers.length + count}
           </p>
         </div>
         {!followUser ? (
