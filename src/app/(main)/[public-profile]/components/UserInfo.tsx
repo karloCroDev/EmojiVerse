@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useAuthState } from "@/app/globals/global-auth-store";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase";
-import { userProps as UserInfoProps } from "../page";
+import { UserProps as UserInfoProps } from "../page";
 
 const UserInfo: React.FC<UserInfoProps> = ({
   bio,

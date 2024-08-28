@@ -38,7 +38,6 @@ const WhoToFollow = ({ users }: { users: UserProps[] }) => {
             .map((item) => (
               <RecommendedFollowers
                 key={item.id}
-                followers={item.followers}
                 username={item.username}
                 bio={item.bio}
                 pfp={item.pfp}

@@ -14,7 +14,7 @@ import {
 } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase";
 import { useAuthState } from "@/app/globals/global-auth-store";
-import Link from "next/link";
+import LinkAsButton from "@/app/(main)/components/Reusables/LinkAsButton";
 
 interface CommentProps {
   docId: string;
@@ -149,11 +149,11 @@ const Comments = ({ likes, docId, comments }: CommentProps) => {
                       </AvatarFallback>
                     </Avatar>
                     <div className="flex flex-col justify-center items-center">
-                      <Link href={userData.authorCommentId}>
+                      <LinkAsButton location={userData.authorCommentId}>
                         <h2 className="text-xl font-semibold hover:underline cursor-pointer transition-[underline]">
                           {userData.username}
                         </h2>
-                      </Link>
+                      </LinkAsButton>
                       <p className="text-sm">{userData.bio}</p>
                     </div>
                   </div>

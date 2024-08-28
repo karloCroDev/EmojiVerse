@@ -1,6 +1,7 @@
 import React from "react";
-import Link from "next/link";
-import Comments from "./Comments";
+
+import Comments from "@/app/(main)/components/Reusables/Comments";
+import LinkAsButton from "./LinkAsButton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface PostsProps {
@@ -39,11 +40,11 @@ const Posts = ({
           </AvatarFallback>
         </Avatar>
         <div className="h-full flex flex-col justify-center">
-          <Link href={`/${uid}`}>
+          <LinkAsButton location={uid}>
             <h2 className="text-2xl font-semibold hover:underline cursor-pointer transition-[underline] ">
               {username}
             </h2>
-          </Link>
+          </LinkAsButton>
           <p className="text-sm"> {bio}</p>
         </div>
         <p className="text-secondary ml-auto text-xl">

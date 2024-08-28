@@ -4,7 +4,6 @@ import AllPosts from "./components/AllPosts";
 import {
   collection,
   doc,
-  DocumentData,
   getDoc,
   getDocs,
   query,
@@ -12,7 +11,7 @@ import {
 } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase";
 
-export interface userProps {
+export interface UserProps {
   bio: string;
   followers: string[];
   messages: string;
@@ -22,12 +21,13 @@ export interface userProps {
 }
 const fetchAllPostsFromUser = async (uid: string) => {
   const q = query(collection(db, "posts"), where("authorId", "==", uid));
+
   return (await getDocs(q)).docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 };
 
 const getUser = async (uid: string) => {
   const userSnapshot = await getDoc(doc(db, "users", uid));
-  return { ...userSnapshot.data(), id: userSnapshot.id } as userProps; // 😑ts
+  return { ...userSnapshot.data(), id: userSnapshot.id } as UserProps; // 😑ts
 };
 
 const page = async (id: any) => {
@@ -36,6 +36,7 @@ const page = async (id: any) => {
   const posts = await fetchAllPostsFromUser(uid);
   const user = await getUser(uid);
 
+  console.log(user);
   return (
     <div className="w-full h-full border-2 rounded-3xl p-7 animate-fade flex flex-col gap-y-4 overflow-scroll">
       <UserInfo

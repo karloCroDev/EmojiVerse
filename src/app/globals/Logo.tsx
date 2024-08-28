@@ -1,17 +1,18 @@
 import React from "react";
-import Link from "next/link";
+
 import Image from "next/image";
 import LogoImg from "../assets/Logo-emoji-verse.png";
+import LinkAsButton from "@/app/(main)/components/Reusables/LinkAsButton";
 
 const Logo = ({ link, pos }: { link: string; pos?: string }) => {
   return (
-    <Link href={link} className={`${pos} `}>
+    <LinkAsButton location={link} className={`${pos} `}>
       <Image
         src={LogoImg}
         alt="Logo"
-        className="object-cover rounded-md w-48   xl:h-20 xl:w-64"
+        className="object-cover rounded-md w-48 xl:h-20 xl:w-64"
       />
-    </Link>
+    </LinkAsButton>
   );
 };
 

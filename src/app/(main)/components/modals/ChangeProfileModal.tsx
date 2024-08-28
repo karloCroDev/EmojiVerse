@@ -14,13 +14,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 
 import { useAuthState } from "@/app/globals/global-auth-store";
-import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { db, storage } from "@/app/firebase/firebase";
 import { updatePassword } from "firebase/auth";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const ChangeProfileModal = () => {
-  const { push } = useRouter();
+  const { push, refresh } = useRouter();
   const { username, initials, uid, bio, pfp, user } = useAuthState((state) => ({
     username: state.username,
     initials: state.initials,
@@ -142,6 +142,7 @@ const ChangeProfileModal = () => {
               className="text-secondary"
               onClick={
                 () => push(`/${uid}`)
+
                 //I had to do it like this because modal won't close on imported Link component from next.js
               }
             >
