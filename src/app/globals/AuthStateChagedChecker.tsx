@@ -2,7 +2,6 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../firebase/firebase";
 import { useAuthState } from "./global-auth-store";
-import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { doc, getDoc } from "firebase/firestore";
 
@@ -11,7 +10,6 @@ const AuthStateChagedChecker = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const { push } = useRouter();
   const {
     setUid,
     setPfp,

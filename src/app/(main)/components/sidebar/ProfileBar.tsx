@@ -1,6 +1,9 @@
 "use client";
-import React, { useState } from "react";
-import { ChangeProfileModal, CreatePostModal } from "../modals/exports";
+import React from "react";
+import {
+  ChangeProfileModal,
+  CreatePostModal,
+} from "@/app/(main)/components/modals/exports";
 
 import { IoAddOutline } from "react-icons/io5";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";

@@ -11,7 +11,7 @@ import { ChangeProfileModal, CreatePostModal } from "../modals/exports";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { useRouter } from "next/navigation";
-
+import { useToast } from "@/components/ui/use-toast";
 import { auth } from "@/app/firebase/firebase";
 import { signOut } from "firebase/auth";
 import { useAuthState } from "@/app/globals/global-auth-store";
@@ -22,11 +22,15 @@ const UserDropdown = () => {
     pfp: state.pfp,
     initials: state.initials,
   }));
-
   const { push } = useRouter();
+  const { toast } = useToast();
   const signOutFn = () => {
     signOut(auth);
     push("/sign-in");
+    toast({
+      title: "Nooo, why are you leaving us 🥺",
+      description: "Come back to see us again",
+    });
   };
   return (
     <DropdownMenu>

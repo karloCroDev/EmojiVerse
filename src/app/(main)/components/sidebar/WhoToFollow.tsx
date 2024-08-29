@@ -1,7 +1,7 @@
 "use client";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import HeaderOfComponents from "../Reusables/HeaderOfComponents";
-import RecommendedFollowers from "./RecommendedFollowers";
+import React, { useEffect, useState } from "react";
+import HeaderOfComponents from "@/app/(main)/components/reusables/HeaderOfComponents";
+import RecommendedFollowers from "@/app/(main)/components/sidebar/RecommendedFollowers";
 import { useAuthState } from "@/app/globals/global-auth-store";
 
 interface UserProps {

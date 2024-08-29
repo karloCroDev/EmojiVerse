@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import SignUpImage from "../../assets/sign-up-img.jpg";
-import Authentication from "../components/Authentication";
+import SignUpImage from "@/app/assets/sign-up-img.jpg";
+import Authentication from "@/app/(auth)/components/Authentication";
 import { auth, db } from "@/app/firebase/firebase";
 import { useRouter } from "next/navigation";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";

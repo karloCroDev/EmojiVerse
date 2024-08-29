@@ -1,8 +1,8 @@
 import React from "react";
 import Logo from "@/app/globals/Logo";
-import ModeToggle from "./ModeToggle";
-import UserDropdown from "./UserDropdown";
-import UserIcon from "./UserIcon";
+import ModeToggle from "@/app/(main)/components/header/ModeToggle";
+import UserDropdown from "@/app/(main)/components/header/UserDropdown";
+import UserIcon from "@/app/(main)/components/header/UserIcon";
 import { Button } from "@/components/ui/button";
 
 const Header = () => {

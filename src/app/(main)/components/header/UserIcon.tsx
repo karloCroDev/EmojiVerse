@@ -3,7 +3,7 @@ import React from "react";
 import { useAuthState } from "@/app/globals/global-auth-store";
 import { twMerge } from "tailwind-merge";
 import { LuUser2 } from "react-icons/lu";
-import LinkAsButton from "@/app/(main)/components/Reusables/LinkAsButton";
+import LinkAsButton from "@/app/(main)/components/reusables/LinkAsButton";
 const UserIcon = ({
   className,
   ...rest

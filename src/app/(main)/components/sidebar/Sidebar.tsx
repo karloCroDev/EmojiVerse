@@ -1,6 +1,6 @@
 import React from "react";
-import ProfileBar from "./ProfileBar";
-import WhoToFollow from "./WhoToFollow";
+import ProfileBar from "@/app/(main)/components/sidebar/ProfileBar";
+import WhoToFollow from "@/app/(main)/components/sidebar/WhoToFollow";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase";
 

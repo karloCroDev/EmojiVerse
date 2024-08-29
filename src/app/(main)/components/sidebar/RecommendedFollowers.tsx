@@ -2,7 +2,7 @@
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import LinkAsButton from "../Reusables/LinkAsButton";
+import LinkAsButton from "@/app/(main)/components/reusables/LinkAsButton";
 import { useRouter } from "next/navigation";
 
 interface RecommendedFollowersProps {
@@ -35,10 +35,7 @@ const RecommendedFollowers = ({
         <p className="text-sm">{bio}</p>
       </div>
       <LinkAsButton className="ml-auto" location={id}>
-        <Button
-          className=" text-xl rounded-full px-6 font-semibold"
-        
-        >
+        <Button className=" text-xl rounded-full px-6 font-semibold">
           Visit
         </Button>
       </LinkAsButton>

@@ -1,8 +1,8 @@
 import React from "react";
 
 import Image from "next/image";
-import LogoImg from "../assets/Logo-emoji-verse.png";
-import LinkAsButton from "@/app/(main)/components/Reusables/LinkAsButton";
+import LogoImg from "@/app/assets/Logo-emoji-verse.png";
+import LinkAsButton from "@/app/(main)/components/reusables/LinkAsButton";
 
 const Logo = ({ link, pos }: { link: string; pos?: string }) => {
   return (

@@ -1,7 +1,5 @@
 import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import Logo from "../globals/Logo";
+import Logo from "@/app/globals/Logo";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (

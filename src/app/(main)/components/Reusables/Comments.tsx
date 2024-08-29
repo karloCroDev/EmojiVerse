@@ -14,7 +14,7 @@ import {
 } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase";
 import { useAuthState } from "@/app/globals/global-auth-store";
-import LinkAsButton from "@/app/(main)/components/Reusables/LinkAsButton";
+import LinkAsButton from "@/app/(main)/components/reusables/LinkAsButton";
 
 interface CommentProps {
   docId: string;

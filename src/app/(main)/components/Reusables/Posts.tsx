@@ -1,7 +1,7 @@
 import React from "react";
 
-import Comments from "@/app/(main)/components/Reusables/Comments";
-import LinkAsButton from "./LinkAsButton";
+import Comments from "@/app/(main)/components/reusables/Comments";
+import LinkAsButton from "@/app/(main)/components/reusables/LinkAsButton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface PostsProps {
@@ -29,7 +29,6 @@ const Posts = ({
   comments,
   uid,
 }: PostsProps) => {
-  console.log(initials);
   return (
     <div className="border-b rounded-none sm:rounded-xl sm:border-2  mt-2 sm:mt-5 py-4 sm:p-8 flex flex-col gap-y-8 h-max-[50rem]">
       <div className="flex items-center gap-x-4">

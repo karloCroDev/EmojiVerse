@@ -9,7 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { MdEmojiEmotions } from "react-icons/md";
 import EmojiPicker from "emoji-picker-react";
-
+import { useToast } from "@/components/ui/use-toast";
 import { db } from "@/app/firebase/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { useAuthState } from "@/app/globals/global-auth-store";
@@ -40,9 +40,8 @@ const EmojiTextarea = () => {
   };
   //Only contentText is chaning
   const checkDisabled = contentText.length < 5 && true;
-
+  const { toast } = useToast();
   //Firebase
-
   const { uid } = useAuthState((state) => ({
     uid: state.uid,
   }));
@@ -102,7 +101,6 @@ const EmojiTextarea = () => {
               onClick={() => {
                 createPost();
                 window.location.reload();
-                //Toast
               }}
             >
               Post

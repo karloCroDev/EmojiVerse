@@ -1,4 +1,4 @@
-//I need to route like this because I need to refresh cache in case of
+//Long story short I had to implement like this, some problems with caching
 
 "use client";
 import React from "react";
@@ -6,13 +6,13 @@ import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 
 const LinkAsButton: React.FC<
-  React.ComponentPropsWithoutRef<"p"> & {
+  React.ComponentPropsWithoutRef<"div"> & {
     location: string;
   }
 > = ({ location, className, children, ...rest }) => {
   const { push, refresh } = useRouter();
   return (
-    <p
+    <div
       {...rest}
       className={twMerge("cursor-pointer", className)}
       onClick={() => {
@@ -21,7 +21,7 @@ const LinkAsButton: React.FC<
       }}
     >
       {children}
-    </p>
+    </div>
   );
 };
 

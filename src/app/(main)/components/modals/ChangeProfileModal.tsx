@@ -1,7 +1,5 @@
 "use client";
 import React, { useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
-
 import {
   DialogContent,
   DialogHeader,
@@ -12,15 +10,14 @@ import {
 import { FaCamera } from "react-icons/fa";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-
 import { useAuthState } from "@/app/globals/global-auth-store";
 import { doc, updateDoc } from "firebase/firestore";
 import { db, storage } from "@/app/firebase/firebase";
 import { updatePassword } from "firebase/auth";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import LinkAsButton from "@/app/(main)/components/reusables/LinkAsButton";
 
 const ChangeProfileModal = () => {
-  const { push, refresh } = useRouter();
   const { username, initials, uid, bio, pfp, user } = useAuthState((state) => ({
     username: state.username,
     initials: state.initials,
@@ -46,7 +43,7 @@ const ChangeProfileModal = () => {
     if (changePfp) {
       const pfpRef = ref(storage, `pfp/${uid}`);
       await uploadBytes(pfpRef, changePfp);
-      const image = await getDownloadURL(pfpRef);
+      await getDownloadURL(pfpRef);
     }
   };
 
@@ -64,9 +61,7 @@ const ChangeProfileModal = () => {
   const modifyPassword = async () => {
     if (changePassword.length > 5) {
       await updatePassword(user, changePassword);
-      //Make toast
     } else {
-      //Make toast
       console.log(false);
     }
   };
@@ -75,6 +70,7 @@ const ChangeProfileModal = () => {
     () => (changePfp ? URL.createObjectURL(changePfp) : pfp),
     [changePfp, pfp]
   );
+
   return (
     <DialogContent>
       <DialogHeader>
@@ -138,16 +134,9 @@ const ChangeProfileModal = () => {
       <DialogFooter>
         <div className="flex justify-between items-center w-full ">
           <DialogClose>
-            <button
-              className="text-secondary"
-              onClick={
-                () => push(`/${uid}`)
-
-                //I had to do it like this because modal won't close on imported Link component from next.js
-              }
-            >
+            <LinkAsButton className="text-secondary" location={uid}>
               Public profile
-            </button>
+            </LinkAsButton>
           </DialogClose>
           <DialogClose
             disabled={preventUserFromSavingChanges}
@@ -161,7 +150,6 @@ const ChangeProfileModal = () => {
                 await modifyPassword();
                 await modifyProfile();
                 window.location.reload();
-                //new toast
               }}
             >
               Save changes

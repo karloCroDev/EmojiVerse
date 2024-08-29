@@ -1,7 +1,7 @@
-"use client"; //I have to use here use client (it actually doesn't make any difference)
+"use client";
 import React from "react";
-import SignInImage from "../../assets/sign-in-img.jpg";
-import Authentication from "../components/Authentication";
+import SignInImage from "@/app/assets/sign-in-img.jpg";
+import Authentication from "@/app/(auth)/components/Authentication";
 import { useRouter } from "next/navigation";
 import { useLoadingState } from "../loading-store";
 import { auth } from "@/app/firebase/firebase";

@@ -1,7 +1,6 @@
 import React from "react";
-import HeaderOfComponents from "../components/Reusables/HeaderOfComponents";
+import HeaderOfComponents from "../components/reusables/HeaderOfComponents";
 import Filters from "./components/Filters";
-import Posts from "../components/Reusables/Posts";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase";
 import PostsFilter from "./components/PostsFilter";
