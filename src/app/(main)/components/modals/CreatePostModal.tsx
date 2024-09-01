@@ -13,6 +13,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { db } from "@/app/firebase/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { useAuthState } from "@/app/globals/global-auth-store";
+import { ToastAction } from "@radix-ui/react-toast";
+import LinkAsButton from "../reusables/LinkAsButton";
 
 const EmojiTextarea = () => {
   const [contentText, setContentText] = useState("");
@@ -38,10 +40,10 @@ const EmojiTextarea = () => {
     const onlyEmojis = newText.match(emojiRegex)?.join("") || "";
     setContentText(onlyEmojis);
   };
-  //Only contentText is chaning
+  // Only contentText is chaning
   const checkDisabled = contentText.length < 5 && true;
+
   const { toast } = useToast();
-  //Firebase
   const { uid } = useAuthState((state) => ({
     uid: state.uid,
   }));
@@ -52,6 +54,15 @@ const EmojiTextarea = () => {
       date: new Date(),
       likes: [],
       comments: [],
+    });
+    toast({
+      title: "Yippie 😎, you have successfully create post",
+
+      action: (
+        <ToastAction altText="Check out your post">
+          <LinkAsButton location={uid}>See your post</LinkAsButton>
+        </ToastAction>
+      ),
     });
   };
   return (
@@ -100,7 +111,6 @@ const EmojiTextarea = () => {
               className="p-4 text-lg font-semi bold"
               onClick={() => {
                 createPost();
-                window.location.reload();
               }}
             >
               Post

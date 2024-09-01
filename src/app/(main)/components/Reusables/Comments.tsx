@@ -23,11 +23,12 @@ interface CommentProps {
 }
 
 const Comments = ({ likes, docId, comments }: CommentProps) => {
-  const { uid, username, pfp, followers } = useAuthState((state) => ({
+  const { uid, username, pfp, followers, initials } = useAuthState((state) => ({
     uid: state.uid,
     username: state.username,
     pfp: state.pfp,
     followers: state.followers,
+    initials: state.initials,
   }));
 
   //Liking the post
@@ -53,6 +54,7 @@ const Comments = ({ likes, docId, comments }: CommentProps) => {
   const commentBtnRef = useRef<HTMLButtonElement | null>(null);
 
   const [userDataGlobal, setUserDataGlobal] = useState<any>([]);
+
   const sendComment = async () => {
     await updateDoc(doc(db, "posts", docId), {
       comments: arrayUnion({ content: newComment, authorCommentId: uid }),
@@ -61,14 +63,14 @@ const Comments = ({ likes, docId, comments }: CommentProps) => {
       ...userDataGlobal,
       {
         content: newComment,
+        initials: initials,
         username: username,
         followers: followers,
         pfp: pfp,
       },
     ]);
     setNewComment("");
-
-    //toast message
+    //Saving on the costs without using onSnapshot and ssr
   };
 
   //Dont fetch instead utilize already fetched user
@@ -79,11 +81,7 @@ const Comments = ({ likes, docId, comments }: CommentProps) => {
           const userSnapshot = await getDoc(
             doc(db, "users", comment.authorCommentId)
           );
-
-          if (userSnapshot.exists()) {
-            return { ...userSnapshot.data(), ...comment };
-          }
-          return null;
+          return { ...userSnapshot.data(), ...comment };
         })
       );
 
@@ -112,8 +110,6 @@ const Comments = ({ likes, docId, comments }: CommentProps) => {
                 await markPost(false);
                 setLiked(false);
                 setLikeCount((prev) => prev - 1);
-
-                //Make toast
               }}
             >
               <FaHeart className="size-6 cursor-pointer text-red-600" />
@@ -124,7 +120,6 @@ const Comments = ({ likes, docId, comments }: CommentProps) => {
                 await markPost(true);
                 setLiked(true);
                 setLikeCount((prev) => prev + 1);
-                //Make toast!
               }}
             >
               <FaRegHeart className="size-6  cursor-pointer" />

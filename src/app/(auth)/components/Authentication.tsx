@@ -73,7 +73,7 @@ const Authentication = ({
       title: "Uh oh! Something went wrong.",
       description: "There was a problem with your request.",
       action: (
-        <ToastAction altText="Try again" onClick={onSubmitFn}>
+        <ToastAction altText="Please, try again" onClick={onSubmitFn}>
           Please, try again
         </ToastAction>
       ),
