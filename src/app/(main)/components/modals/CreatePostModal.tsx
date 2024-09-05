@@ -14,7 +14,7 @@ import { db } from "@/app/firebase/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { useAuthState } from "@/app/globals/global-auth-store";
 import { ToastAction } from "@radix-ui/react-toast";
-import LinkAsButton from "../reusables/LinkAsButton";
+import LinkAsButton from "@/app/(main)/components/reusables/LinkAsButton";
 
 const EmojiTextarea = () => {
   const [contentText, setContentText] = useState("");

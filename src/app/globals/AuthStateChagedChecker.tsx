@@ -4,6 +4,9 @@ import { auth, db } from "../firebase/firebase";
 import { useAuthState } from "./global-auth-store";
 import React, { useEffect } from "react";
 import { doc, getDoc } from "firebase/firestore";
+import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 const AuthStateChagedChecker = ({
   children,
@@ -27,6 +30,11 @@ const AuthStateChagedChecker = ({
     setUser: state.setUser,
     setInitials: state.setInitials,
   }));
+
+  const pathname = usePathname();
+  const { push } = useRouter();
+  const { toast } = useToast();
+
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -41,6 +49,14 @@ const AuthStateChagedChecker = ({
           setInitials(data.initials);
           setFollowers(data.followers);
         }
+      }
+
+      if (!user && !pathname.includes("/sign")) {
+        push("/sign-in");
+        toast({
+          title: "Uh oh 🥺! You are not signed in. ",
+          description: "Please sign in or create an account",
+        });
       }
     });
 

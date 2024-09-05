@@ -18,6 +18,7 @@ export interface UserProps {
   pfp: string;
   username: string;
   id: never;
+  initials: string;
 }
 const fetchAllPostsFromUser = async (uid: string) => {
   const q = query(collection(db, "posts"), where("authorId", "==", uid));
@@ -46,6 +47,7 @@ const page = async (id: any) => {
         pfp={user?.pfp}
         username={user?.username}
         id={user?.id}
+        initials={user?.initials}
       />
       <AllPosts posts={posts} user={user} />
     </div>

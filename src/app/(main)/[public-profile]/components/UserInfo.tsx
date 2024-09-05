@@ -12,6 +12,7 @@ const UserInfo: React.FC<UserInfoProps> = ({
   followers,
   pfp,
   username,
+  initials,
   id,
 }) => {
   const uid = useAuthState((state) => state.uid);
@@ -20,7 +21,7 @@ const UserInfo: React.FC<UserInfoProps> = ({
   const [count, setCount] = useState(0);
   console.log(id);
   useEffect(() => {
-    setFollowUser(followers.includes(uid));
+    setFollowUser(followers?.includes(uid));
   }, [uid]);
 
   const followUserFn = async (actionFollow: boolean) => {
@@ -41,14 +42,14 @@ const UserInfo: React.FC<UserInfoProps> = ({
         <Avatar className="sm:w-28 sm:h-28 w-16 h-16">
           <AvatarImage src={pfp} alt="" />
           <AvatarFallback className="text-xl sm:text-4xl font-semibold ">
-            {username.split(" ").map((l) => l[0].toUpperCase())}
+            {initials}
           </AvatarFallback>
         </Avatar>
         <div>
           <h1 className="font-bold sm:text-5xl  text-3xl">{username}</h1>
           <p className="font-semibold text-sm lg:text-md mt-1">{bio}</p>
           <p className="font-semibold text-md lg:text-lg mt-1 text-secondary">
-            Followers: {followers.length + count}
+            Followers: {followers?.length + count}
           </p>
         </div>
         {!followUser ? (
