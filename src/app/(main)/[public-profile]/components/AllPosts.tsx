@@ -1,5 +1,5 @@
 import React from "react";
-import Posts from "@/app/(main)/components/reusables/Posts";
+import Posts from "@/app/(main)/components/Reusables/Posts";
 
 const AllPosts = async ({ posts, user }: { posts: any; user: any }) => {
   return (

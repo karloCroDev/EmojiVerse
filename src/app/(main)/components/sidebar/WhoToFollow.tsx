@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import HeaderOfComponents from "@/app/(main)/components/reusables/HeaderOfComponents";
+import HeaderOfComponents from "@/app/(main)/components/Reusables/HeaderOfComponents";
 import RecommendedFollowers from "@/app/(main)/components/sidebar/RecommendedFollowers";
 import { useAuthState } from "@/app/globals/global-auth-store";
 

@@ -15,7 +15,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db, storage } from "@/app/firebase/firebase";
 import { updatePassword } from "firebase/auth";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import LinkAsButton from "@/app/(main)/components/reusables/LinkAsButton";
+import LinkAsButton from "@/app/(main)/components/Reusables/LinkAsButton";
 
 const ChangeProfileModal = () => {
   const { username, initials, uid, bio, pfp, user } = useAuthState((state) => ({

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Posts from "../../components/reusables/Posts";
+import Posts from "../../components/Reusables/Posts";
 import { useFilterStore } from "./filter-store";
 import { useAuthState } from "@/app/globals/global-auth-store";
 const PostsFilter = ({ posts }: { posts: any[] }) => {

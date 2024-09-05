@@ -2,7 +2,7 @@
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import LinkAsButton from "@/app/(main)/components/reusables/LinkAsButton";
+import LinkAsButton from "@/app/(main)/components/Reusables/LinkAsButton";
 import { useRouter } from "next/navigation";
 
 interface RecommendedFollowersProps {

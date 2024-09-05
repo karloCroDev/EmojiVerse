@@ -1,7 +1,7 @@
 import React from "react";
 
-import Comments from "@/app/(main)/components/reusables/Comments";
-import LinkAsButton from "@/app/(main)/components/reusables/LinkAsButton";
+import Comments from "@/app/(main)/components/Reusables/Comments";
+import LinkAsButton from "@/app/(main)/components/Reusables/LinkAsButton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface PostsProps {
