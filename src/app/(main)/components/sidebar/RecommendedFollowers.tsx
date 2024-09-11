@@ -1,9 +1,7 @@
-"use client";
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import LinkAsButton from "@/app/(main)/components/Reusables/LinkAsButton";
-import { useRouter } from "next/navigation";
 
 interface RecommendedFollowersProps {
   pfp: string;
@@ -18,7 +16,6 @@ const RecommendedFollowers = ({
   bio,
   id,
 }: RecommendedFollowersProps) => {
-  const { refresh, push } = useRouter();
   return (
     <aside className="flex items-center gap-x-4">
       <Avatar className="w-16 h-16">
@@ -31,7 +28,6 @@ const RecommendedFollowers = ({
         <h2 className="text-xl font-semibold  transition-[underline]">
           {username}
         </h2>
-
         <p className="text-sm">{bio}</p>
       </div>
       <LinkAsButton className="ml-auto" location={id}>
