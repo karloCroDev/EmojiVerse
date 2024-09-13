@@ -17,6 +17,8 @@ import { ToastAction } from "@radix-ui/react-toast";
 import LinkAsButton from "@/app/(main)/components/Reusables/LinkAsButton";
 
 const EmojiTextarea = () => {
+  const { toast } = useToast();
+
   const [contentText, setContentText] = useState("");
   const [getEmojis, setGetEmojis] = useState(false);
 
@@ -32,18 +34,24 @@ const EmojiTextarea = () => {
   const handleChange = (e: any) => {
     const newText = e.target.value;
 
-    // Check for letters and log a message
     if (letterRegex.test(newText)) {
-      console.log("Error!");
+      toast({
+        title: "Well actually 🤓, only emojis can be used",
+
+        action: (
+          <ToastAction altText="Check out your post">
+            <LinkAsButton location={uid}>See your post</LinkAsButton>
+          </ToastAction>
+        ),
+      });
     }
 
     const onlyEmojis = newText.match(emojiRegex)?.join("") || "";
     setContentText(onlyEmojis);
   };
-  // Only contentText is chaning
+
   const checkDisabled = contentText.length < 5 && true;
 
-  const { toast } = useToast();
   const { uid } = useAuthState((state) => ({
     uid: state.uid,
   }));

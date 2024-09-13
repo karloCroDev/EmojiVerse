@@ -53,7 +53,7 @@ const Comments = ({ likes, docId, comments }: CommentProps) => {
   const [newComment, setNewComment] = useState("");
   const commentBtnRef = useRef<HTMLButtonElement | null>(null);
 
-  const [userDataGlobal, setUserDataGlobal] = useState<any>([]);
+  const [userDataGlobal, setUserDataGlobal] = useState<any[]>([]);
 
   const sendComment = async () => {
     await updateDoc(doc(db, "posts", docId), {
@@ -73,26 +73,25 @@ const Comments = ({ likes, docId, comments }: CommentProps) => {
     //Saving on the costs without using onSnapshot and ssr
   };
 
-  //Dont fetch instead utilize already fetched user
   useEffect(() => {
     const fetchData = async () => {
-      const userDataArray = await Promise.all(
-        comments.map(async (comment) => {
-          const userSnapshot = await getDoc(
-            doc(db, "users", comment.authorCommentId)
-          );
-          return { ...userSnapshot.data(), ...comment };
-        })
-      );
+      if (comments.length !== 0) {
+        const userDataArray = await Promise.all(
+          comments.map(async (comment) => {
+            const userSnapshot = await getDoc(
+              doc(db, "users", comment.authorCommentId)
+            );
+            return { ...userSnapshot.data(), ...comment };
+          })
+        );
 
-      // Filter out null values in case any userSnapshot didn't exist
-
-      setUserDataGlobal(userDataArray);
+        setUserDataGlobal(userDataArray);
+      }
     };
 
     fetchData();
-  }, []);
-  console.log(userDataGlobal);
+  }, [comments]);
+
   return (
     <>
       <div className="flex items-center justify-between">

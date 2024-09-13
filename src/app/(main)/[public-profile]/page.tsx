@@ -37,7 +37,6 @@ const page = async (id: any) => {
   const posts = await fetchAllPostsFromUser(uid);
   const user = await getUser(uid);
 
-  console.log(user);
   return (
     <div className="w-full h-full border-2 rounded-3xl p-7 animate-fade flex flex-col gap-y-4 overflow-scroll">
       <UserInfo

@@ -43,7 +43,9 @@ const ChangeProfileModal = () => {
     if (changePfp) {
       const pfpRef = ref(storage, `pfp/${uid}`);
       await uploadBytes(pfpRef, changePfp);
-      await getDownloadURL(pfpRef);
+      await updateDoc(doc(db, "users", uid), {
+        pfp: await getDownloadURL(pfpRef),
+      });
     }
   };
 
@@ -55,14 +57,11 @@ const ChangeProfileModal = () => {
     await updateDoc(doc(db, "users", uid), {
       username: usernameChecker,
       bio: bioChecker,
-      pfp: pfp,
     });
   };
   const modifyPassword = async () => {
     if (changePassword.length > 5) {
       await updatePassword(user, changePassword);
-    } else {
-      console.log(false);
     }
   };
   //Doing this only on modal, so that only on modal chnages reflec, also it was rendering too much, so I fixed with useMemo()

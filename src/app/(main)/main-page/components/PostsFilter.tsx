@@ -25,7 +25,6 @@ const PostsFilter = ({ posts }: { posts: any[] }) => {
             post.content.includes(filterInput)
         )
         .sort((a, b) => {
-          console.log(a.followers);
           switch (filterSelect) {
             case "popular":
               return b.likes.length - a.likes.length;
@@ -38,7 +37,6 @@ const PostsFilter = ({ posts }: { posts: any[] }) => {
           }
         })
         .map((post) => {
-          console.log(post.likes);
           return (
             <Posts
               key={post.id}

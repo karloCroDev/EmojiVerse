@@ -19,7 +19,7 @@ const UserInfo: React.FC<UserInfoProps> = ({
 
   const [followUser, setFollowUser] = useState(false);
   const [count, setCount] = useState(0);
-  console.log(id);
+
   useEffect(() => {
     setFollowUser(followers?.includes(uid));
   }, [uid]);

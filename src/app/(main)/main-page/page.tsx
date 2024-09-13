@@ -7,10 +7,13 @@ import PostsFilter from "./components/PostsFilter";
 
 const getPosts = async (): Promise<any[]> => {
   const postsSnapshot = await getDocs(collection(db, "posts"));
-
   const posts: any[] = await Promise.all(
     postsSnapshot.docs.map(async (docx) => {
+      if (!docx.data().authorId) {
+        return [];
+      }
       const userSnapshot = await getDoc(doc(db, "users", docx.data().authorId));
+
       return {
         ...docx.data(),
         id: docx.id,
