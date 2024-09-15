@@ -5,6 +5,8 @@ import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "@/app/firebase/firebase";
 import PostsFilter from "./components/PostsFilter";
 
+export const dynamic = "force-dynamic";
+
 const getPosts = async (): Promise<any[]> => {
   const postsSnapshot = await getDocs(collection(db, "posts"));
   const posts: any[] = await Promise.all(

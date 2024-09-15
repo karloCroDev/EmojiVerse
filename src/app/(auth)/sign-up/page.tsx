@@ -29,7 +29,7 @@ const page = () => {
         initials: username
           .split(" ")
           .map((l) => l[0].toUpperCase())
-          .toString(),
+          .join(""),
         pfp: "",
         bio: "",
         followers: [],
